@@ -59,6 +59,6 @@ This audit maps 12 recurring tasks from my real week and classifies each using t
 
 ## Files in This Folder
 
-- `Workflow audit table.png` — visual version of the audit table
-- `Project.png` — screenshot of the configured AI project
-- `Project instructions.png` — screenshot of the project's custom instructions
+- `workflow-audit-table.png` — visual version of the audit table
+- `project.png` — screenshot of the configured AI project
+- `project-instructions.png` — screenshot of the project's custom instructions
