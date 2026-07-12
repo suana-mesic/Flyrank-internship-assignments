@@ -82,13 +82,15 @@ Each run produced: a source-cited summary (Step 2), formatted study notes with a
 
 ## Evidence (screenshots)
 
-The full text outputs of all five runs are documented above, so the screenshots are a visual confirmation that the steps really run in their tools rather than plain chat. Capturing every step of all five runs would mean 15 screenshots (5 runs × 3 views), which is more noise than proof — so I captured one representative run (Lecture 5) across both tools:
+All five runs are captured across both tools — the NotebookLM summary (Steps 1–2, source-grounded) and the Claude Project output in two parts (Steps 3–4) for each lecture. Together they show both tools in use and the handoff between them, matching the full text outputs above.
 
-- `notebooklm-output-lecture5.png` — the NotebookLM summary (Steps 1–2, source-grounded).
-- `claude-questions-1-lecture5.png` — the Claude Project output, part 1 (Steps 3–4).
-- `claude-questions-2-lecture5.png` — the Claude Project output, part 2.
-
-Together they show both tools in use and the handoff between them; the text above covers all five runs in full.
+| Lecture | NotebookLM (Steps 1–2) | Claude — part 1 (Steps 3–4) | Claude — part 2 |
+|---------|------------------------|------------------------------|-----------------|
+| 1 | `notebooklm-output-lecture1.png` | `claude-questions-1-lecture1.png` | `claude-questions-2-lecture1.png` |
+| 2 | `notebooklm-output-lecture2.png` | `claude-questions-1-lecture2.png` | `claude-questions-2-lecture2.png` |
+| 3 | `notebooklm-output-lecture3.png` | `claude-questions-1-lecture3.png` | `claude-questions-2-lecture3.png` |
+| 4 | `notebooklm-output-lecture4.png` | `claude-questions-1-lecture4.png` | `claude-questions-2-lecture4.png` |
+| 5 | `notebooklm-output-lecture5.png` | `claude-questions-1-lecture5.png` | `claude-questions-2-lecture5.png` |
 
 ---
 
@@ -122,6 +124,6 @@ The pipeline is fast but **not** a replacement for judgment. What breaks, and wh
 
 - `README.md` — this walkthrough
 - `pipeline-diagram.png` — the 4-step flow diagram
-- `notebooklm-output-lecture5.png` — NotebookLM summary (representative run)
-- `claude-questions-1-lecture5.png` — Claude Project output, part 1
-- `claude-questions-2-lecture5.png` — Claude Project output, part 2
+- `notebooklm-output-lecture1.png` … `lecture5.png` — NotebookLM summary for each run
+- `claude-questions-1-lecture1.png` … `lecture5.png` — Claude Project output, part 1, each run
+- `claude-questions-2-lecture1.png` … `lecture5.png` — Claude Project output, part 2, each run
