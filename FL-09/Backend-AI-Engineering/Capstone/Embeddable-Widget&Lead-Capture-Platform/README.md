@@ -71,6 +71,10 @@ Two cache layers:
 - `Cache-Control: public, max-age=300` — for five minutes the browser doesn't ask at all.
 - `ETag: "{id}-{version}"` — after that it asks with `If-None-Match` and gets **304** with no body. Editing a widget bumps `version` in SQL (`version = version + 1`), which changes the ETag, so the change propagates.
 
+The script itself is served the same way: `widget.js` gets `Cache-Control: public, max-age=3600`, and the snippet points at `widget.js?v=1`. Static files middleware supplies the ETag, so after the hour the browser gets a 304 rather than the file. Changing the script means bumping `v`, which changes the URL and forces every browser to fetch the new one — a versioned asset, without a build step.
+
+Widget types are `newsletter` (inline form), `popover` (fixed corner box with a close button), and `cta` (a link). The type only selects which HTML the script assembles from the same config.
+
 ### Public submission endpoint
 
 CORS is scoped, not global: `RequireCors("public")` sits on `/config` and `/submissions` only. Admin routes deliberately have no CORS headers — a test asserts this, because a global policy would let any page call the dashboard.
@@ -138,6 +142,12 @@ The script is wrapped in an IIFE so it declares nothing globally. It's a guest o
 - **The webhook receiver is my own `/debug/webhook`.** In production `Webhook__Url` would point at the customer's server.
 - **The debug switches are demo-only** and would be removed or gated before this went anywhere real.
 - **Notifications are in-process.** A restart loses whatever is in the channel. A durable outbox table would fix it — the same pattern I used in BookVerse — but that's beyond this scope.
+
+Three things I left out on purpose, rather than by accident:
+
+- **Targeting** (show on certain pages, after N seconds, once per visitor) is listed under Stretch, not the definition of done, so widgets carry type/copy/fields but no targeting rules.
+- **Idempotent submissions** — a double-click currently writes two rows. Real deduplication needs a client-supplied key and a unique constraint; worth doing, but it isn't in the core list.
+- **The webhook isn't signed.** The receiver can't currently prove the notification came from me. A shared secret and an HMAC header would fix it — again, listed under "Built from" rather than the core.
 
 ---
 

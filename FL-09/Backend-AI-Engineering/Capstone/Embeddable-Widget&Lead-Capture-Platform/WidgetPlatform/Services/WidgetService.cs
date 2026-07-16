@@ -5,7 +5,7 @@ namespace WidgetPlatform.Services
 {
     public class WidgetService
     {
-        private static readonly string[] AllowType = { "newsletter", "cta" };
+        private static readonly string[] AllowType = { "newsletter", "cta", "popover" };
 
         private readonly IWidgetRepository _widgets;
 

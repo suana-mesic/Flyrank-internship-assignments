@@ -85,7 +85,16 @@ builder.Services.AddRateLimiter(o =>
 
 var app = builder.Build();
 
-app.UseStaticFiles();
+const string WidgetScriptVersion = "1";
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        if (ctx.File.Name.Equals("widget.js", StringComparison.OrdinalIgnoreCase))
+            ctx.Context.Response.Headers.CacheControl = "public, max-age=3600";
+    }
+});
 
 app.UseCors();
 app.UseRateLimiter();
@@ -165,7 +174,7 @@ app.MapGet("/widgets/{id:guid}/embed", async (Guid id, ClaimsPrincipal user,
     if (widget is null) return Results.NotFound();
 
     var baseUrl = $"{http.Request.Scheme}://{http.Request.Host}";
-    var snippet = $"<script src=\"{baseUrl}/widget.js\" data-widget-id=\"{widget.Id}\" async></script>";
+    var snippet = $"<script src=\"{baseUrl}/widget.js?v={WidgetScriptVersion}\" data-widget-id=\"{widget.Id}\" async></script>";
 
     return Results.Ok(new { snippet });
 }).RequireAuthorization();

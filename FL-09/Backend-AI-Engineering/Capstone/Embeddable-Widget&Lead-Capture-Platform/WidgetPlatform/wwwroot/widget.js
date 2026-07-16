@@ -18,13 +18,8 @@
       console.error("[widget]", e);
     });
 
-  function render(cfg) {
-    if (cfg.type === "cta") {
-      box.innerHTML = '<a href="#">' + escape(cfg.title) + "</a>";
-      return;
-    }
-
-    var inputs = cfg.fields
+  function fieldsHtml(cfg) {
+    return cfg.fields
       .map(function (f) {
         return (
           "<label>" +
@@ -36,19 +31,47 @@
         );
       })
       .join("");
+  }
 
-    box.innerHTML =
-      '<div style="border:1px solid #ccc;padding:16px;max-width:320px;font-family:sans-serif">' +
+  function formHtml(cfg) {
+    return (
       "<h3>" +
       escape(cfg.title) +
       "</h3>" +
-      inputs +
+      fieldsHtml(cfg) +
       '<input name="website" style="display:none" tabindex="-1" autocomplete="off">' +
-      '<button type="button">Pošalji</button>' +
-      '<p class="msg"></p>' +
-      "</div>";
+      '<button type="button" class="send">Pošalji</button>' +
+      '<p class="msg"></p>'
+    );
+  }
 
-    box.querySelector("button").addEventListener("click", function () {
+  function render(cfg) {
+    if (cfg.type === "cta") {
+      box.innerHTML = '<a href="#">' + escape(cfg.title) + "</a>";
+      return;
+    }
+
+    if (cfg.type === "popover") {
+      box.innerHTML =
+        '<div style="position:fixed;bottom:16px;right:16px;z-index:9999;max-width:300px;' +
+        "background:#fff;border-radius:8px;padding:16px;font-family:sans-serif;" +
+        'box-shadow:0 4px 16px rgba(0,0,0,.2)">' +
+        '<button type="button" class="close" style="float:right;border:0;background:none;' +
+        'font-size:18px;cursor:pointer">&times;</button>' +
+        formHtml(cfg) +
+        "</div>";
+
+      box.querySelector(".close").addEventListener("click", function () {
+        box.innerHTML = "";
+      });
+    } else {
+      box.innerHTML =
+        '<div style="border:1px solid #ccc;padding:16px;max-width:320px;font-family:sans-serif">' +
+        formHtml(cfg) +
+        "</div>";
+    }
+
+    box.querySelector(".send").addEventListener("click", function () {
       send(cfg);
     });
   }
