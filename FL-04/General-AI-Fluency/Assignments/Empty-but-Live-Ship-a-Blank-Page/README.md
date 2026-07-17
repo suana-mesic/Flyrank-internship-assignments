@@ -7,7 +7,9 @@
 
 ## Live URL
 
-**https://suana-mesic.github.io**
+**https://github.com/suana-mesic/suana-mesic.github.io/tree/f1** — The version built specifically for this assignment. You can view it by cloning the repository and double-clicking index.html.
+
+**https://suana-mesic.github.io** — The live production version, which updates depending on how many tasks I have completed.
 
 An empty-but-live landing page: my name, my one-line claim, and a "coming soon" marker, in my identity-kit colors. Confirmed live by opening it on my phone (screenshot included), not just my laptop.
 
@@ -42,6 +44,7 @@ I did not choose no-code because it's built for visual portfolios and hides the 
 ## Ready for the build week
 
 Loaded into my AI workspace so next week is just filling a page that already exists:
+
 - **Identity kit** — fonts (Fraunces + Inter), palette (burgundy `#6E2A46`, rose `#B04A67`, text `#2A2024`, background `#FDF7F8`), logo and style note.
 - **Case studies** — BookVerse (the strongest), RFID attendance system.
 - **Content map** — the single-page Hero → Work → About → Contact plan with the one-line claim and per-section calls to action.
