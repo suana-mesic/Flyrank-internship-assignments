@@ -77,3 +77,4 @@ This means: anyone who types `suana.flyrank.ai` gets redirected (at the DNS leve
 
 - `README.md` — this document (DNS walkthrough)
 - `CV.pdf` — my CV, also linked from the portfolio page
+- `portfolio-at-submission.png`
