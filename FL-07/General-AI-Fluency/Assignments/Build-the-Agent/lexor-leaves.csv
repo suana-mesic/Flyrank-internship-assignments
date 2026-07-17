@@ -1,0 +1,197 @@
+employee_id,employee_name,department,position,hire_date,leave_type,is_paid,date_from,date_to,number_of_days,state,reason
+10,Dino Bašić,Finansije,Finance Director,2023-06-19,Bolovanje,True,2024-01-03,2024-01-05,3,CompletedLeaveState,Prehlada
+3,Sara Čaušević,Razvoj,Junior Developer,2019-04-08,Godišnji odmor,True,2024-01-08,2024-01-10,3,ApprovedLeaveState,Odmor
+22,Irfan Spahić,Razvoj,Junior Developer,2020-11-06,Bolovanje,True,2024-01-10,2024-01-14,5,CompletedLeaveState,Migrena
+21,Selma Kovačević,Finansije,Accountant,2020-09-16,Bolovanje,True,2024-01-12,2024-01-13,2,ApprovedLeaveState,Prehlada
+12,Faris Bećirović,Marketing,Marketing Specialist,2022-05-15,Bolovanje,True,2024-01-16,2024-01-17,2,ApprovedLeaveState,Migrena
+3,Sara Čaušević,Razvoj,Junior Developer,2019-04-08,Bolovanje,True,2024-01-22,2024-01-22,1,ApprovedLeaveState,Migrena
+25,Dalila Bećirović,Razvoj,Team Lead,2023-05-25,Bolovanje,True,2024-01-24,2024-01-25,2,CompletedLeaveState,Prehlada
+17,Emina Bašić,Razvoj,Senior Developer,2022-05-03,Bolovanje,True,2024-01-25,2024-01-25,1,CompletedLeaveState,Viroza
+18,Jasmin Salihović,Finansije,Accountant,2022-07-21,Bolovanje,True,2024-02-05,2024-02-06,2,ApprovedLeaveState,Migrena
+3,Sara Čaušević,Razvoj,Junior Developer,2019-04-08,Bolovanje,True,2024-02-08,2024-02-09,2,ApprovedLeaveState,Povreda
+12,Faris Bećirović,Marketing,Marketing Specialist,2022-05-15,Bolovanje,True,2024-02-08,2024-02-08,1,ApprovedLeaveState,Migrena
+13,Merjem Bećirović,Finansije,Accountant,2021-06-07,Bolovanje,True,2024-02-09,2024-02-10,2,CompletedLeaveState,Prehlada
+30,Hamza Kovačević,Razvoj,Team Lead,2021-08-01,Bolovanje,True,2024-02-09,2024-02-10,2,ApprovedLeaveState,Prehlada
+22,Irfan Spahić,Razvoj,Junior Developer,2020-11-06,Bolovanje,True,2024-02-15,2024-02-17,3,CompletedLeaveState,Viroza
+6,Adnan Delić,Razvoj,Junior Developer,2022-06-09,Godišnji odmor,True,2024-02-20,2024-02-22,3,ApprovedLeaveState,Privatni razlozi
+10,Dino Bašić,Finansije,Finance Director,2023-06-19,Bolovanje,True,2024-02-21,2024-02-23,3,ApprovedLeaveState,Migrena
+1,Amina Delić,Razvoj,Junior Developer,2021-04-08,Godišnji odmor,True,2024-02-24,2024-03-01,7,ApprovedLeaveState,Selidba
+29,Neira Spahić,Marketing,Marketing Specialist,2021-03-18,Bolovanje,True,2024-02-25,2024-02-26,2,ApprovedLeaveState,Stomačni problemi
+16,Bakir Mehmedović,Marketing,Marketing Manager,2021-01-08,Bolovanje,True,2024-03-01,2024-03-01,1,ApprovedLeaveState,Migrena
+29,Neira Spahić,Marketing,Marketing Specialist,2021-03-18,Bolovanje,True,2024-03-08,2024-03-09,2,ApprovedLeaveState,Viroza
+12,Faris Bećirović,Marketing,Marketing Specialist,2022-05-15,Godišnji odmor,True,2024-03-14,2024-03-16,3,ApprovedLeaveState,Odmor
+24,Mirza Hadžić,Podrška,QA Tester,2021-09-28,Bolovanje,True,2024-03-16,2024-03-17,2,CompletedLeaveState,Stomačni problemi
+22,Irfan Spahić,Razvoj,Junior Developer,2020-11-06,Bolovanje,True,2024-04-03,2024-04-07,5,ApprovedLeaveState,Prehlada
+3,Sara Čaušević,Razvoj,Junior Developer,2019-04-08,Bolovanje,True,2024-04-16,2024-04-18,3,ApprovedLeaveState,Prehlada
+7,Hana Kovačević,Marketing,Content Writer,2019-02-13,Bolovanje,True,2024-04-22,2024-04-24,3,ApprovedLeaveState,Stomačni problemi
+1,Amina Delić,Razvoj,Junior Developer,2021-04-08,Godišnji odmor,True,2024-05-08,2024-05-10,3,ApprovedLeaveState,Selidba
+13,Merjem Bećirović,Finansije,Accountant,2021-06-07,Godišnji odmor,True,2024-05-12,2024-05-21,10,CompletedLeaveState,Selidba
+22,Irfan Spahić,Razvoj,Junior Developer,2020-11-06,Bolovanje,True,2024-05-22,2024-05-26,5,ApprovedLeaveState,Povreda
+25,Dalila Bećirović,Razvoj,Team Lead,2023-05-25,Godišnji odmor,True,2024-05-22,2024-05-31,10,CompletedLeaveState,Privatni razlozi
+5,Lejla Spahić,Podrška,Support Agent,2022-10-09,Godišnji odmor,True,2024-06-02,2024-06-11,10,ApprovedLeaveState,Odmor
+24,Mirza Hadžić,Podrška,QA Tester,2021-09-28,Godišnji odmor,True,2024-06-03,2024-06-07,5,CompletedLeaveState,Putovanje
+25,Dalila Bećirović,Razvoj,Team Lead,2023-05-25,Godišnji odmor,True,2024-06-03,2024-06-07,5,ApprovedLeaveState,Privatni razlozi
+29,Neira Spahić,Marketing,Marketing Specialist,2021-03-18,Godišnji odmor,True,2024-06-04,2024-06-13,10,CompletedLeaveState,Selidba
+16,Bakir Mehmedović,Marketing,Marketing Manager,2021-01-08,Godišnji odmor,True,2024-06-10,2024-06-14,5,ApprovedLeaveState,Privatni razlozi
+28,Elvir Halilović,Razvoj,Team Lead,2021-11-17,Godišnji odmor,True,2024-06-13,2024-06-19,7,ApprovedLeaveState,Selidba
+8,Tarik Hadžić,Finansije,Financial Analyst,2023-05-26,Godišnji odmor,True,2024-06-17,2024-06-21,5,ApprovedLeaveState,Odmor
+7,Hana Kovačević,Marketing,Content Writer,2019-02-13,Godišnji odmor,True,2024-06-20,2024-06-22,3,CompletedLeaveState,Selidba
+22,Irfan Spahić,Razvoj,Junior Developer,2020-11-06,Godišnji odmor,True,2024-06-20,2024-06-24,5,ApprovedLeaveState,Putovanje
+18,Jasmin Salihović,Finansije,Accountant,2022-07-21,Godišnji odmor,True,2024-06-21,2024-06-25,5,CompletedLeaveState,Putovanje
+15,Lamija Husić,Marketing,Marketing Specialist,2022-07-09,Godišnji odmor,True,2024-06-22,2024-06-26,5,CompletedLeaveState,Porodični razlozi
+28,Elvir Halilović,Razvoj,Team Lead,2021-11-17,Godišnji odmor,True,2024-07-06,2024-07-08,3,CompletedLeaveState,Privatni razlozi
+4,Kenan Karić,Razvoj,Team Lead,2020-12-21,Godišnji odmor,True,2024-07-08,2024-07-10,3,CompletedLeaveState,Selidba
+5,Lejla Spahić,Podrška,Support Agent,2022-10-09,Godišnji odmor,True,2024-07-10,2024-07-16,7,CompletedLeaveState,Putovanje
+20,Almir Hodžić,Finansije,Finance Director,2023-07-19,Godišnji odmor,True,2024-07-10,2024-07-16,7,CompletedLeaveState,Selidba
+19,Naida Čaušević,Marketing,Content Writer,2020-04-24,Godišnji odmor,True,2024-07-11,2024-07-20,10,CompletedLeaveState,Privatni razlozi
+9,Nejra Čaušević,Podrška,QA Tester,2019-07-03,Godišnji odmor,True,2024-07-18,2024-07-22,5,ApprovedLeaveState,Selidba
+10,Dino Bašić,Finansije,Finance Director,2023-06-19,Bolovanje,True,2024-07-18,2024-07-18,1,ApprovedLeaveState,Prehlada
+11,Aida Mehmedović,Razvoj,Junior Developer,2020-05-03,Godišnji odmor,True,2024-07-19,2024-07-28,10,ApprovedLeaveState,Privatni razlozi
+12,Faris Bećirović,Marketing,Marketing Specialist,2022-05-15,Godišnji odmor,True,2024-07-20,2024-07-24,5,ApprovedLeaveState,Putovanje
+21,Selma Kovačević,Finansije,Accountant,2020-09-16,Godišnji odmor,True,2024-08-01,2024-08-03,3,CompletedLeaveState,Putovanje
+9,Nejra Čaušević,Podrška,QA Tester,2019-07-03,Godišnji odmor,True,2024-08-04,2024-08-08,5,CompletedLeaveState,Porodični razlozi
+23,Azra Halilović,Podrška,QA Tester,2019-07-13,Godišnji odmor,True,2024-08-04,2024-08-10,7,CompletedLeaveState,Privatni razlozi
+21,Selma Kovačević,Finansije,Accountant,2020-09-16,Godišnji odmor,True,2024-08-05,2024-08-14,10,ApprovedLeaveState,Privatni razlozi
+10,Dino Bašić,Finansije,Finance Director,2023-06-19,Godišnji odmor,True,2024-08-07,2024-08-11,5,ApprovedLeaveState,Odmor
+14,Armin Delić,Finansije,Finance Director,2019-10-21,Godišnji odmor,True,2024-08-07,2024-08-11,5,ApprovedLeaveState,Privatni razlozi
+29,Neira Spahić,Marketing,Marketing Specialist,2021-03-18,Godišnji odmor,True,2024-08-08,2024-08-17,10,CompletedLeaveState,Privatni razlozi
+30,Hamza Kovačević,Razvoj,Team Lead,2021-08-01,Godišnji odmor,True,2024-08-10,2024-08-16,7,ApprovedLeaveState,Putovanje
+23,Azra Halilović,Podrška,QA Tester,2019-07-13,Godišnji odmor,True,2024-08-12,2024-08-14,3,CompletedLeaveState,Porodični razlozi
+26,Anes Salihović,Finansije,Accountant,2021-07-06,Godišnji odmor,True,2024-08-16,2024-08-20,5,CompletedLeaveState,Porodični razlozi
+5,Lejla Spahić,Podrška,Support Agent,2022-10-09,Neplaćeno odsustvo,False,2024-08-17,2024-08-19,3,ApprovedLeaveState,Privatni razlozi
+4,Kenan Karić,Razvoj,Team Lead,2020-12-21,Godišnji odmor,True,2024-08-18,2024-08-20,3,ApprovedLeaveState,Putovanje
+17,Emina Bašić,Razvoj,Senior Developer,2022-05-03,Godišnji odmor,True,2024-08-19,2024-08-23,5,CompletedLeaveState,Privatni razlozi
+20,Almir Hodžić,Finansije,Finance Director,2023-07-19,Godišnji odmor,True,2024-08-23,2024-08-25,3,CompletedLeaveState,Privatni razlozi
+29,Neira Spahić,Marketing,Marketing Specialist,2021-03-18,Neplaćeno odsustvo,False,2024-08-23,2024-08-25,3,CompletedLeaveState,Porodične obaveze
+27,Sumeja Delić,Razvoj,Team Lead,2021-09-25,Godišnji odmor,True,2024-09-10,2024-09-14,5,CompletedLeaveState,Porodični razlozi
+18,Jasmin Salihović,Finansije,Accountant,2022-07-21,Godišnji odmor,True,2024-09-15,2024-09-19,5,CompletedLeaveState,Privatni razlozi
+16,Bakir Mehmedović,Marketing,Marketing Manager,2021-01-08,Bolovanje,True,2024-09-16,2024-09-17,2,ApprovedLeaveState,Stomačni problemi
+2,Emir Hodžić,Razvoj,Team Lead,2023-02-19,Godišnji odmor,True,2024-09-25,2024-09-29,5,CompletedLeaveState,Privatni razlozi
+24,Mirza Hadžić,Podrška,QA Tester,2021-09-28,Godišnji odmor,True,2024-10-20,2024-10-26,7,CompletedLeaveState,Porodični razlozi
+16,Bakir Mehmedović,Marketing,Marketing Manager,2021-01-08,Godišnji odmor,True,2024-10-21,2024-10-25,5,CompletedLeaveState,Privatni razlozi
+2,Emir Hodžić,Razvoj,Team Lead,2023-02-19,Bolovanje,True,2024-11-01,2024-11-05,5,ApprovedLeaveState,Povreda
+11,Aida Mehmedović,Razvoj,Junior Developer,2020-05-03,Bolovanje,True,2024-11-02,2024-11-04,3,ApprovedLeaveState,Viroza
+16,Bakir Mehmedović,Marketing,Marketing Manager,2021-01-08,Bolovanje,True,2024-11-03,2024-11-04,2,CompletedLeaveState,Viroza
+26,Anes Salihović,Finansije,Accountant,2021-07-06,Bolovanje,True,2024-11-06,2024-11-08,3,ApprovedLeaveState,Povreda
+18,Jasmin Salihović,Finansije,Accountant,2022-07-21,Bolovanje,True,2024-11-08,2024-11-10,3,CompletedLeaveState,Stomačni problemi
+2,Emir Hodžić,Razvoj,Team Lead,2023-02-19,Godišnji odmor,True,2024-11-12,2024-11-18,7,CompletedLeaveState,Porodični razlozi
+25,Dalila Bećirović,Razvoj,Team Lead,2023-05-25,Bolovanje,True,2024-11-12,2024-11-14,3,CompletedLeaveState,Stomačni problemi
+21,Selma Kovačević,Finansije,Accountant,2020-09-16,Bolovanje,True,2024-11-13,2024-11-15,3,ApprovedLeaveState,Migrena
+20,Almir Hodžić,Finansije,Finance Director,2023-07-19,Bolovanje,True,2024-11-14,2024-11-16,3,ApprovedLeaveState,Migrena
+7,Hana Kovačević,Marketing,Content Writer,2019-02-13,Bolovanje,True,2024-11-15,2024-11-17,3,ApprovedLeaveState,Prehlada
+24,Mirza Hadžić,Podrška,QA Tester,2021-09-28,Bolovanje,True,2024-11-18,2024-11-18,1,ApprovedLeaveState,Prehlada
+30,Hamza Kovačević,Razvoj,Team Lead,2021-08-01,Bolovanje,True,2024-11-19,2024-11-20,2,CompletedLeaveState,Prehlada
+23,Azra Halilović,Podrška,QA Tester,2019-07-13,Bolovanje,True,2024-11-20,2024-11-24,5,CompletedLeaveState,Migrena
+17,Emina Bašić,Razvoj,Senior Developer,2022-05-03,Bolovanje,True,2024-12-02,2024-12-06,5,ApprovedLeaveState,Prehlada
+3,Sara Čaušević,Razvoj,Junior Developer,2019-04-08,Bolovanje,True,2024-12-07,2024-12-11,5,ApprovedLeaveState,Povreda
+4,Kenan Karić,Razvoj,Team Lead,2020-12-21,Bolovanje,True,2024-12-07,2024-12-09,3,ApprovedLeaveState,Viroza
+12,Faris Bećirović,Marketing,Marketing Specialist,2022-05-15,Bolovanje,True,2024-12-08,2024-12-10,3,ApprovedLeaveState,Prehlada
+21,Selma Kovačević,Finansije,Accountant,2020-09-16,Bolovanje,True,2024-12-09,2024-12-11,3,CompletedLeaveState,Prehlada
+29,Neira Spahić,Marketing,Marketing Specialist,2021-03-18,Bolovanje,True,2024-12-10,2024-12-14,5,ApprovedLeaveState,Povreda
+15,Lamija Husić,Marketing,Marketing Specialist,2022-07-09,Bolovanje,True,2024-12-11,2024-12-13,3,CompletedLeaveState,Povreda
+3,Sara Čaušević,Razvoj,Junior Developer,2019-04-08,Bolovanje,True,2024-12-12,2024-12-14,3,CompletedLeaveState,Migrena
+13,Merjem Bećirović,Finansije,Accountant,2021-06-07,Bolovanje,True,2024-12-12,2024-12-14,3,CompletedLeaveState,Povreda
+24,Mirza Hadžić,Podrška,QA Tester,2021-09-28,Bolovanje,True,2024-12-16,2024-12-20,5,ApprovedLeaveState,Migrena
+1,Amina Delić,Razvoj,Junior Developer,2021-04-08,Bolovanje,True,2024-12-18,2024-12-19,2,CompletedLeaveState,Povreda
+15,Lamija Husić,Marketing,Marketing Specialist,2022-07-09,Bolovanje,True,2024-12-22,2024-12-24,3,ApprovedLeaveState,Povreda
+17,Emina Bašić,Razvoj,Senior Developer,2022-05-03,Bolovanje,True,2024-12-22,2024-12-26,5,CompletedLeaveState,Migrena
+22,Irfan Spahić,Razvoj,Junior Developer,2020-11-06,Bolovanje,True,2024-12-23,2024-12-23,1,ApprovedLeaveState,Stomačni problemi
+8,Tarik Hadžić,Finansije,Financial Analyst,2023-05-26,Bolovanje,True,2025-01-02,2025-01-04,3,ApprovedLeaveState,Stomačni problemi
+20,Almir Hodžić,Finansije,Finance Director,2023-07-19,Bolovanje,True,2025-01-03,2025-01-05,3,ApprovedLeaveState,Stomačni problemi
+22,Irfan Spahić,Razvoj,Junior Developer,2020-11-06,Bolovanje,True,2025-01-03,2025-01-07,5,ApprovedLeaveState,Migrena
+3,Sara Čaušević,Razvoj,Junior Developer,2019-04-08,Bolovanje,True,2025-01-06,2025-01-08,3,CompletedLeaveState,Migrena
+23,Azra Halilović,Podrška,QA Tester,2019-07-13,Bolovanje,True,2025-01-08,2025-01-10,3,ApprovedLeaveState,Prehlada
+14,Armin Delić,Finansije,Finance Director,2019-10-21,Bolovanje,True,2025-01-10,2025-01-12,3,ApprovedLeaveState,Prehlada
+27,Sumeja Delić,Razvoj,Team Lead,2021-09-25,Bolovanje,True,2025-01-16,2025-01-18,3,CompletedLeaveState,Stomačni problemi
+30,Hamza Kovačević,Razvoj,Team Lead,2021-08-01,Bolovanje,True,2025-01-18,2025-01-20,3,CompletedLeaveState,Stomačni problemi
+3,Sara Čaušević,Razvoj,Junior Developer,2019-04-08,Bolovanje,True,2025-01-22,2025-01-26,5,CompletedLeaveState,Migrena
+17,Emina Bašić,Razvoj,Senior Developer,2022-05-03,Bolovanje,True,2025-02-04,2025-02-04,1,ApprovedLeaveState,Prehlada
+7,Hana Kovačević,Marketing,Content Writer,2019-02-13,Bolovanje,True,2025-02-14,2025-02-15,2,ApprovedLeaveState,Migrena
+3,Sara Čaušević,Razvoj,Junior Developer,2019-04-08,Bolovanje,True,2025-02-16,2025-02-18,3,CompletedLeaveState,Stomačni problemi
+30,Hamza Kovačević,Razvoj,Team Lead,2021-08-01,Godišnji odmor,True,2025-02-17,2025-02-21,5,ApprovedLeaveState,Putovanje
+17,Emina Bašić,Razvoj,Senior Developer,2022-05-03,Bolovanje,True,2025-02-19,2025-02-21,3,ApprovedLeaveState,Viroza
+5,Lejla Spahić,Podrška,Support Agent,2022-10-09,Bolovanje,True,2025-02-20,2025-02-24,5,ApprovedLeaveState,Prehlada
+11,Aida Mehmedović,Razvoj,Junior Developer,2020-05-03,Bolovanje,True,2025-02-20,2025-02-22,3,ApprovedLeaveState,Prehlada
+19,Naida Čaušević,Marketing,Content Writer,2020-04-24,Bolovanje,True,2025-02-21,2025-02-25,5,ApprovedLeaveState,Migrena
+17,Emina Bašić,Razvoj,Senior Developer,2022-05-03,Bolovanje,True,2025-02-24,2025-02-26,3,ApprovedLeaveState,Prehlada
+24,Mirza Hadžić,Podrška,QA Tester,2021-09-28,Bolovanje,True,2025-03-05,2025-03-07,3,ApprovedLeaveState,Povreda
+13,Merjem Bećirović,Finansije,Accountant,2021-06-07,Godišnji odmor,True,2025-03-25,2025-03-29,5,CompletedLeaveState,Selidba
+4,Kenan Karić,Razvoj,Team Lead,2020-12-21,Godišnji odmor,True,2025-04-09,2025-04-18,10,ApprovedLeaveState,Odmor
+10,Dino Bašić,Finansije,Finance Director,2023-06-19,Bolovanje,True,2025-04-13,2025-04-15,3,ApprovedLeaveState,Viroza
+8,Tarik Hadžić,Finansije,Financial Analyst,2023-05-26,Godišnji odmor,True,2025-04-21,2025-04-25,5,ApprovedLeaveState,Porodični razlozi
+6,Adnan Delić,Razvoj,Junior Developer,2022-06-09,Bolovanje,True,2025-04-25,2025-04-27,3,ApprovedLeaveState,Stomačni problemi
+24,Mirza Hadžić,Podrška,QA Tester,2021-09-28,Godišnji odmor,True,2025-05-10,2025-05-14,5,ApprovedLeaveState,Porodični razlozi
+7,Hana Kovačević,Marketing,Content Writer,2019-02-13,Bolovanje,True,2025-05-11,2025-05-15,5,CompletedLeaveState,Prehlada
+4,Kenan Karić,Razvoj,Team Lead,2020-12-21,Bolovanje,True,2025-05-18,2025-05-18,1,CompletedLeaveState,Prehlada
+13,Merjem Bećirović,Finansije,Accountant,2021-06-07,Godišnji odmor,True,2025-05-24,2025-05-28,5,ApprovedLeaveState,Privatni razlozi
+19,Naida Čaušević,Marketing,Content Writer,2020-04-24,Godišnji odmor,True,2025-06-03,2025-06-07,5,CompletedLeaveState,Selidba
+26,Anes Salihović,Finansije,Accountant,2021-07-06,Godišnji odmor,True,2025-06-03,2025-06-12,10,ApprovedLeaveState,Selidba
+16,Bakir Mehmedović,Marketing,Marketing Manager,2021-01-08,Godišnji odmor,True,2025-06-04,2025-06-10,7,ApprovedLeaveState,Putovanje
+15,Lamija Husić,Marketing,Marketing Specialist,2022-07-09,Neplaćeno odsustvo,False,2025-06-07,2025-06-08,2,CompletedLeaveState,Privatni razlozi
+16,Bakir Mehmedović,Marketing,Marketing Manager,2021-01-08,Neplaćeno odsustvo,False,2025-06-08,2025-06-08,1,ApprovedLeaveState,Privatni razlozi
+17,Emina Bašić,Razvoj,Senior Developer,2022-05-03,Godišnji odmor,True,2025-06-11,2025-06-15,5,ApprovedLeaveState,Odmor
+26,Anes Salihović,Finansije,Accountant,2021-07-06,Bolovanje,True,2025-06-12,2025-06-13,2,ApprovedLeaveState,Prehlada
+18,Jasmin Salihović,Finansije,Accountant,2022-07-21,Godišnji odmor,True,2025-06-15,2025-06-24,10,ApprovedLeaveState,Selidba
+19,Naida Čaušević,Marketing,Content Writer,2020-04-24,Godišnji odmor,True,2025-06-16,2025-06-22,7,ApprovedLeaveState,Porodični razlozi
+12,Faris Bećirović,Marketing,Marketing Specialist,2022-05-15,Bolovanje,True,2025-06-17,2025-06-21,5,CompletedLeaveState,Viroza
+27,Sumeja Delić,Razvoj,Team Lead,2021-09-25,Bolovanje,True,2025-06-17,2025-06-17,1,CompletedLeaveState,Migrena
+9,Nejra Čaušević,Podrška,QA Tester,2019-07-03,Godišnji odmor,True,2025-06-20,2025-06-26,7,ApprovedLeaveState,Privatni razlozi
+5,Lejla Spahić,Podrška,Support Agent,2022-10-09,Godišnji odmor,True,2025-06-21,2025-06-25,5,CompletedLeaveState,Odmor
+27,Sumeja Delić,Razvoj,Team Lead,2021-09-25,Godišnji odmor,True,2025-06-25,2025-06-27,3,ApprovedLeaveState,Privatni razlozi
+25,Dalila Bećirović,Razvoj,Team Lead,2023-05-25,Godišnji odmor,True,2025-07-01,2025-07-05,5,ApprovedLeaveState,Selidba
+28,Elvir Halilović,Razvoj,Team Lead,2021-11-17,Godišnji odmor,True,2025-07-03,2025-07-05,3,CompletedLeaveState,Privatni razlozi
+12,Faris Bećirović,Marketing,Marketing Specialist,2022-05-15,Godišnji odmor,True,2025-07-11,2025-07-17,7,ApprovedLeaveState,Putovanje
+20,Almir Hodžić,Finansije,Finance Director,2023-07-19,Godišnji odmor,True,2025-07-13,2025-07-19,7,ApprovedLeaveState,Odmor
+30,Hamza Kovačević,Razvoj,Team Lead,2021-08-01,Bolovanje,True,2025-07-14,2025-07-16,3,ApprovedLeaveState,Stomačni problemi
+29,Neira Spahić,Marketing,Marketing Specialist,2021-03-18,Godišnji odmor,True,2025-07-17,2025-07-21,5,ApprovedLeaveState,Privatni razlozi
+10,Dino Bašić,Finansije,Finance Director,2023-06-19,Godišnji odmor,True,2025-07-19,2025-07-23,5,CompletedLeaveState,Odmor
+22,Irfan Spahić,Razvoj,Junior Developer,2020-11-06,Godišnji odmor,True,2025-07-19,2025-07-23,5,CompletedLeaveState,Selidba
+15,Lamija Husić,Marketing,Marketing Specialist,2022-07-09,Godišnji odmor,True,2025-07-22,2025-07-31,10,CompletedLeaveState,Selidba
+23,Azra Halilović,Podrška,QA Tester,2019-07-13,Godišnji odmor,True,2025-07-24,2025-07-28,5,ApprovedLeaveState,Porodični razlozi
+23,Azra Halilović,Podrška,QA Tester,2019-07-13,Godišnji odmor,True,2025-08-02,2025-08-04,3,CompletedLeaveState,Privatni razlozi
+21,Selma Kovačević,Finansije,Accountant,2020-09-16,Godišnji odmor,True,2025-08-07,2025-08-11,5,CompletedLeaveState,Putovanje
+6,Adnan Delić,Razvoj,Junior Developer,2022-06-09,Godišnji odmor,True,2025-08-09,2025-08-11,3,CompletedLeaveState,Odmor
+1,Amina Delić,Razvoj,Junior Developer,2021-04-08,Godišnji odmor,True,2025-08-10,2025-08-16,7,ApprovedLeaveState,Privatni razlozi
+7,Hana Kovačević,Marketing,Content Writer,2019-02-13,Godišnji odmor,True,2025-08-11,2025-08-13,3,CompletedLeaveState,Porodični razlozi
+14,Armin Delić,Finansije,Finance Director,2019-10-21,Godišnji odmor,True,2025-08-11,2025-08-20,10,ApprovedLeaveState,Porodični razlozi
+16,Bakir Mehmedović,Marketing,Marketing Manager,2021-01-08,Godišnji odmor,True,2025-08-12,2025-08-21,10,CompletedLeaveState,Porodični razlozi
+25,Dalila Bećirović,Razvoj,Team Lead,2023-05-25,Godišnji odmor,True,2025-08-12,2025-08-14,3,CompletedLeaveState,Porodični razlozi
+3,Sara Čaušević,Razvoj,Junior Developer,2019-04-08,Godišnji odmor,True,2025-08-15,2025-08-19,5,ApprovedLeaveState,Selidba
+4,Kenan Karić,Razvoj,Team Lead,2020-12-21,Godišnji odmor,True,2025-08-16,2025-08-18,3,ApprovedLeaveState,Selidba
+18,Jasmin Salihović,Finansije,Accountant,2022-07-21,Godišnji odmor,True,2025-08-17,2025-08-21,5,CompletedLeaveState,Porodični razlozi
+30,Hamza Kovačević,Razvoj,Team Lead,2021-08-01,Godišnji odmor,True,2025-08-17,2025-08-26,10,ApprovedLeaveState,Odmor
+14,Armin Delić,Finansije,Finance Director,2019-10-21,Godišnji odmor,True,2025-08-23,2025-08-27,5,CompletedLeaveState,Porodični razlozi
+20,Almir Hodžić,Finansije,Finance Director,2023-07-19,Bolovanje,True,2025-09-02,2025-09-06,5,CompletedLeaveState,Prehlada
+3,Sara Čaušević,Razvoj,Junior Developer,2019-04-08,Neplaćeno odsustvo,False,2025-09-12,2025-09-14,3,CompletedLeaveState,Studiranje
+2,Emir Hodžić,Razvoj,Team Lead,2023-02-19,Godišnji odmor,True,2025-10-09,2025-10-11,3,ApprovedLeaveState,Putovanje
+27,Sumeja Delić,Razvoj,Team Lead,2021-09-25,Bolovanje,True,2025-10-15,2025-10-19,5,CompletedLeaveState,Stomačni problemi
+2,Emir Hodžić,Razvoj,Team Lead,2023-02-19,Godišnji odmor,True,2025-10-19,2025-10-21,3,CompletedLeaveState,Selidba
+22,Irfan Spahić,Razvoj,Junior Developer,2020-11-06,Godišnji odmor,True,2025-10-20,2025-10-29,10,ApprovedLeaveState,Selidba
+6,Adnan Delić,Razvoj,Junior Developer,2022-06-09,Godišnji odmor,True,2025-10-22,2025-10-28,7,ApprovedLeaveState,Privatni razlozi
+22,Irfan Spahić,Razvoj,Junior Developer,2020-11-06,Bolovanje,True,2025-10-22,2025-10-24,3,ApprovedLeaveState,Viroza
+11,Aida Mehmedović,Razvoj,Junior Developer,2020-05-03,Bolovanje,True,2025-11-02,2025-11-04,3,CompletedLeaveState,Prehlada
+15,Lamija Husić,Marketing,Marketing Specialist,2022-07-09,Bolovanje,True,2025-11-04,2025-11-06,3,CompletedLeaveState,Stomačni problemi
+3,Sara Čaušević,Razvoj,Junior Developer,2019-04-08,Bolovanje,True,2025-11-11,2025-11-11,1,CompletedLeaveState,Povreda
+22,Irfan Spahić,Razvoj,Junior Developer,2020-11-06,Bolovanje,True,2025-11-11,2025-11-13,3,ApprovedLeaveState,Viroza
+20,Almir Hodžić,Finansije,Finance Director,2023-07-19,Bolovanje,True,2025-11-12,2025-11-13,2,CompletedLeaveState,Prehlada
+24,Mirza Hadžić,Podrška,QA Tester,2021-09-28,Bolovanje,True,2025-11-12,2025-11-12,1,CompletedLeaveState,Prehlada
+10,Dino Bašić,Finansije,Finance Director,2023-06-19,Bolovanje,True,2025-11-13,2025-11-15,3,ApprovedLeaveState,Povreda
+9,Nejra Čaušević,Podrška,QA Tester,2019-07-03,Bolovanje,True,2025-11-15,2025-11-17,3,ApprovedLeaveState,Migrena
+19,Naida Čaušević,Marketing,Content Writer,2020-04-24,Bolovanje,True,2025-11-15,2025-11-19,5,CompletedLeaveState,Prehlada
+7,Hana Kovačević,Marketing,Content Writer,2019-02-13,Bolovanje,True,2025-11-18,2025-11-20,3,CompletedLeaveState,Migrena
+10,Dino Bašić,Finansije,Finance Director,2023-06-19,Bolovanje,True,2025-11-19,2025-11-21,3,CompletedLeaveState,Prehlada
+13,Merjem Bećirović,Finansije,Accountant,2021-06-07,Bolovanje,True,2025-11-19,2025-11-21,3,CompletedLeaveState,Prehlada
+8,Tarik Hadžić,Finansije,Financial Analyst,2023-05-26,Bolovanje,True,2025-11-23,2025-11-23,1,CompletedLeaveState,Viroza
+13,Merjem Bećirović,Finansije,Accountant,2021-06-07,Bolovanje,True,2025-12-01,2025-12-03,3,ApprovedLeaveState,Migrena
+21,Selma Kovačević,Finansije,Accountant,2020-09-16,Godišnji odmor,True,2025-12-02,2025-12-06,5,CompletedLeaveState,Odmor
+24,Mirza Hadžić,Podrška,QA Tester,2021-09-28,Bolovanje,True,2025-12-03,2025-12-05,3,CompletedLeaveState,Povreda
+23,Azra Halilović,Podrška,QA Tester,2019-07-13,Bolovanje,True,2025-12-04,2025-12-06,3,CompletedLeaveState,Povreda
+8,Tarik Hadžić,Finansije,Financial Analyst,2023-05-26,Bolovanje,True,2025-12-05,2025-12-06,2,CompletedLeaveState,Povreda
+1,Amina Delić,Razvoj,Junior Developer,2021-04-08,Godišnji odmor,True,2025-12-13,2025-12-17,5,CompletedLeaveState,Privatni razlozi
+6,Adnan Delić,Razvoj,Junior Developer,2022-06-09,Bolovanje,True,2025-12-13,2025-12-15,3,ApprovedLeaveState,Migrena
+23,Azra Halilović,Podrška,QA Tester,2019-07-13,Bolovanje,True,2025-12-14,2025-12-16,3,ApprovedLeaveState,Povreda
+6,Adnan Delić,Razvoj,Junior Developer,2022-06-09,Bolovanje,True,2025-12-15,2025-12-17,3,ApprovedLeaveState,Viroza
+5,Lejla Spahić,Podrška,Support Agent,2022-10-09,Bolovanje,True,2025-12-16,2025-12-17,2,CompletedLeaveState,Povreda
+11,Aida Mehmedović,Razvoj,Junior Developer,2020-05-03,Godišnji odmor,True,2025-12-16,2025-12-20,5,ApprovedLeaveState,Selidba
+25,Dalila Bećirović,Razvoj,Team Lead,2023-05-25,Bolovanje,True,2025-12-17,2025-12-17,1,CompletedLeaveState,Stomačni problemi
+3,Sara Čaušević,Razvoj,Junior Developer,2019-04-08,Bolovanje,True,2025-12-25,2025-12-29,5,ApprovedLeaveState,Migrena
