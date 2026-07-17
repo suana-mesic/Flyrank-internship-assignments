@@ -7,7 +7,9 @@
 
 ## Live URL
 
-**https://suana-mesic.github.io**
+**https://github.com/suana-mesic/suana-mesic.github.io/tree/f2** — The version built specifically for this assignment. You can view it by cloning the repository and double-clicking index.html.
+
+**https://suana-mesic.github.io** — The live production version, which updates depending on how many tasks I have completed.
 
 Every section from my sitemap is live and reachable: Hero → Work → About → Contact. The nav works, the case opens, and every call to action points at the one action from Week 1 — visit my GitHub.
 
@@ -39,7 +41,7 @@ I sent the link to a colleague from my faculty — someone in the same field who
 
 **Whether the work landed:** partly — and this is the useful part. Their reaction was that I'm worth a lot more than what the portfolio shows.
 
-That's not a compliment I get to enjoy. It's a finding. The page reads well and is clear about *one* project, and someone who already knows me immediately noticed the gap between what's on the page and what I've actually built. A recruiter who doesn't know me wouldn't notice — they'd just see less. Which means the site's problem isn't the design or the writing. It's that it under-represents me, and I'm the only one who can fix that by putting more of the work in.
+That's not a compliment I get to enjoy. It's a finding. The page reads well and is clear about _one_ project, and someone who already knows me immediately noticed the gap between what's on the page and what I've actually built. A recruiter who doesn't know me wouldn't notice — they'd just see less. Which means the site's problem isn't the design or the writing. It's that it under-represents me, and I'm the only one who can fix that by putting more of the work in.
 
 ---
 
