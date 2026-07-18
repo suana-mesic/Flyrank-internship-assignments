@@ -56,7 +56,7 @@ namespace BackgroundJobApi.Services
                         }
                     }
 
-                    job.Result= result;
+                    job.Result = result;
                     job.Status = JobStatus.Completed;
                     job.CompletedAtUtc = DateTime.UtcNow;
 

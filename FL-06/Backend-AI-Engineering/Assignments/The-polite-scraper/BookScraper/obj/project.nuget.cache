@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "QTx+JSUOmCI=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\suana\\Desktop\\PRAKSA\\FL-06\\Backend-AI-Engineering\\Assignments\\The-polite-scraper\\BookScraper\\BookScraper.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\suana\\.nuget\\packages\\htmlagilitypack\\1.12.4\\htmlagilitypack.1.12.4.nupkg.sha512"
+  ],
+  "logs": []
+}
