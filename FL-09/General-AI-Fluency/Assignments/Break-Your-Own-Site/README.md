@@ -7,25 +7,26 @@
 
 ## Live URL
 
-https://suana-mesic.github.io
+https://github.com/suana-mesic/suana-mesic.github.io/tree/f7 — The version built specifically for this assignment. You can view it by cloning the repository and double-clicking index.html.
+https://suana-mesic.github.io — The live production version, which updates depending on how many tasks I have completed.
 
 ---
 
 ## What I tried
 
-| Test | What happened |
-|---|---|
-| Submit form with empty fields | Browser blocked it — `required` attribute on all three fields works |
-| Submit form with garbage email ("asdf") | Browser blocked it — `type="email"` validation caught it |
-| Click "Send message" twice fast | First version had a race: button disabled on click, but a fast double-click could fire two fetches before the first disabled the button. Fixed with an `if (btn.disabled) return` guard at the top of the handler |
-| Open on phone (real device) | Already fixed in the "Open It on Your Phone" assignment — nav wraps, padding reduced, touch targets sized |
-| Open in Firefox (had only tested Chrome/Edge) | Worked without issues |
-| Click every link (LinkedIn, GitHub, CodeWars, CV, Calendly, BookVerse repo) | All working. CV link depends on `Suana_Mesic_CV.pdf` being in the repo — if missing, it 404s silently |
-| Share the URL on LinkedIn/chat | No preview appeared — missing Open Graph meta tags |
-| Check browser tab | Blank — no favicon |
-| Check code block on very narrow screen (~320px) | Horizontal scroll appears but there's no visual indicator that you can scroll — the code just looks cut off |
-| Run speed check | Google Fonts load externally — on slow connections the page renders with fallback fonts first, then shifts when Fraunces/Inter load (FOUT) |
-| Search "Suana Mešić portfolio" on Google | Not indexed yet — no `robots.txt` or `sitemap.xml`, but GitHub Pages allows crawling by default so it will index eventually |
+| Test                                                                        | What happened                                                                                                                                                                                                     |
+| --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Submit form with empty fields                                               | Browser blocked it — `required` attribute on all three fields works                                                                                                                                               |
+| Submit form with garbage email ("asdf")                                     | Browser blocked it — `type="email"` validation caught it                                                                                                                                                          |
+| Click "Send message" twice fast                                             | First version had a race: button disabled on click, but a fast double-click could fire two fetches before the first disabled the button. Fixed with an `if (btn.disabled) return` guard at the top of the handler |
+| Open on phone (real device)                                                 | Already fixed in the "Open It on Your Phone" assignment — nav wraps, padding reduced, touch targets sized                                                                                                         |
+| Open in Firefox (had only tested Chrome/Edge)                               | Worked without issues                                                                                                                                                                                             |
+| Click every link (LinkedIn, GitHub, CodeWars, CV, Calendly, BookVerse repo) | All working. CV link depends on `Suana_Mesic_CV.pdf` being in the repo — if missing, it 404s silently                                                                                                             |
+| Share the URL on LinkedIn/chat                                              | No preview appeared — missing Open Graph meta tags                                                                                                                                                                |
+| Check browser tab                                                           | Blank — no favicon                                                                                                                                                                                                |
+| Check code block on very narrow screen (~320px)                             | Horizontal scroll appears but there's no visual indicator that you can scroll — the code just looks cut off                                                                                                       |
+| Run speed check                                                             | Google Fonts load externally — on slow connections the page renders with fallback fonts first, then shifts when Fraunces/Inter load (FOUT)                                                                        |
+| Search "Suana Mešić portfolio" on Google                                    | Not indexed yet — no `robots.txt` or `sitemap.xml`, but GitHub Pages allows crawling by default so it will index eventually                                                                                       |
 
 ---
 
