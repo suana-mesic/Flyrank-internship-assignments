@@ -25,6 +25,13 @@ CREATE TABLE IF NOT EXISTS usage_events (
     UNIQUE(tenant_id, idempotency_key)
 );
 
+-- Token cost breakdown (added after the initial design): lets /usage price
+-- input / cached-input / output separately, so the cached-input and reasoning
+-- rules apply to real monthly usage, not only in the pinned unit test.
+ALTER TABLE usage_events ADD COLUMN IF NOT EXISTS input_tokens        INT NOT NULL DEFAULT 0;
+ALTER TABLE usage_events ADD COLUMN IF NOT EXISTS cached_input_tokens INT NOT NULL DEFAULT 0;
+ALTER TABLE usage_events ADD COLUMN IF NOT EXISTS output_tokens       INT NOT NULL DEFAULT 0;
+
 CREATE TABLE IF NOT EXISTS subscriptions (
     id                      SERIAL PRIMARY KEY,
     tenant_id               INT NOT NULL REFERENCES tenants(id),

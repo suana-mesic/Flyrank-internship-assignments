@@ -87,6 +87,8 @@ Verified: 999/1000 + 1 is allowed (lands exactly on the limit); 1000/1000 + 1 is
 
 Verified: a pinned input (100 calls, 1,000 input, 200 cached, 500 output) returns exactly `0.10465`; cached tokens cost half of the same count of fresh input; a 500-token output total is billed purely at the output rate (`PricingServiceTests`).
 
+These rules apply to real usage too, not just the unit test: each `/api/ask` records its token split (fresh input, cached input when `reuseContext` is set, and output with reasoning folded in) into `usage_events`, and `/usage` sums those columns and prices each category — so the monthly figure reflects the cached discount and the reasoning rule.
+
 ### Stripe test-mode integration — Checkout + signed, idempotent webhooks
 
 `POST /billing/checkout` creates a `subscription`-mode Checkout session and stamps `tenantId` into both the session metadata **and** the subscription metadata — the second one matters, because `subscription.updated` / `deleted` events hand back a `Subscription`, not the `Session`, and would otherwise have no way to know whose account they belong to.
@@ -130,7 +132,6 @@ Make `/api/ask` calls in a loop until the tenant hits its quota → the refusal 
 ## What's simulated, and what I'd do next
 
 - **The AI call in `/api/ask` is a stub.** It echoes the question and estimates token counts from word count, because the assignment explicitly allows the billable action to be a dummy endpoint. Swapping in a real model means replacing that one block with a provider call and reading the real token usage off the response — the metering, quota, and cost paths around it don't change.
-- **`/usage` currently rolls all token events up as output tokens.** `PricingService` fully supports the cached-input and reasoning rules — and the pinned test proves it — but the live rollup doesn't yet split stored token events into input / cached / output, so it uses the output rate for the monthly figure. Splitting them means recording the breakdown per event, which I left out of the core to keep the schema to two usage types as the brief asked.
 - **`/meter` enforces the quota inline; `/api/ask` uses the extracted `QuotaService`.** They apply the same rule and the same status codes; the service is the version under test. Routing `/meter` through it too would be a small, safe consolidation.
 
 Three things I left out on purpose, listed under Stretch rather than the definition of done:

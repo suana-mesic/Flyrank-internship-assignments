@@ -8,14 +8,18 @@ public class UsageRepository
 
     public UsageRepository(string connStr) => _connStr = connStr;
 
-    public bool TryRecord(int tenantId, string usageType, int quantity, string idempotencyKey)
+    // The token split (input / cached / output) is optional and defaults to 0,
+    // so callers that meter a plain count (e.g. "api_call") stay unchanged.
+    public bool TryRecord(int tenantId, string usageType, int quantity, string idempotencyKey,
+        int inputTokens = 0, int cachedInputTokens = 0, int outputTokens = 0)
     {
         using var conn = new NpgsqlConnection(_connStr);
         conn.Open();
 
         using var cmd = new NpgsqlCommand("""
-            INSERT INTO usage_events (tenant_id, usage_type, quantity, idempotency_key)
-            VALUES (@tid, @type, @qty, @key)
+            INSERT INTO usage_events (tenant_id, usage_type, quantity, idempotency_key,
+                                     input_tokens, cached_input_tokens, output_tokens)
+            VALUES (@tid, @type, @qty, @key, @in, @cached, @out)
             ON CONFLICT (tenant_id, idempotency_key) DO NOTHING
             """, conn);
 
@@ -23,9 +27,35 @@ public class UsageRepository
         cmd.Parameters.AddWithValue("type", usageType);
         cmd.Parameters.AddWithValue("qty", quantity);
         cmd.Parameters.AddWithValue("key", idempotencyKey);
+        cmd.Parameters.AddWithValue("in", inputTokens);
+        cmd.Parameters.AddWithValue("cached", cachedInputTokens);
+        cmd.Parameters.AddWithValue("out", outputTokens);
 
         var rows = cmd.ExecuteNonQuery();
         return rows > 0;
+    }
+
+    // Sums the three token cost categories for the current month, so /usage can
+    // price cached input cheaper and treat reasoning as part of output.
+    public (long inputTokens, long cachedInputTokens, long outputTokens) GetMonthlyTokenBreakdown(int tenantId)
+    {
+        using var conn = new NpgsqlConnection(_connStr);
+        conn.Open();
+
+        using var cmd = new NpgsqlCommand("""
+            SELECT COALESCE(SUM(input_tokens), 0),
+                   COALESCE(SUM(cached_input_tokens), 0),
+                   COALESCE(SUM(output_tokens), 0)
+            FROM usage_events
+            WHERE tenant_id = @tid
+              AND created_at >= date_trunc('month', NOW())
+            """, conn);
+
+        cmd.Parameters.AddWithValue("tid", tenantId);
+
+        using var reader = cmd.ExecuteReader();
+        reader.Read();
+        return (reader.GetInt64(0), reader.GetInt64(1), reader.GetInt64(2));
     }
 
 

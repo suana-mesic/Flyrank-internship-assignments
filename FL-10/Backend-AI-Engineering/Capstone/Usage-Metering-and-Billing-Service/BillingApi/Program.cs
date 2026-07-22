@@ -168,9 +168,22 @@ app.MapPost("/api/ask", (AskRequest req, HttpContext http,
     var currentUsage = usage.GetMonthlyUsage(tenantId.Value);
     var callsUsed = currentUsage.GetValueOrDefault("api_call", 0);
     var answer = $"This is a simulated AI response to: {req.Question}";
-    var inputTokens = req.Question.Split(' ').Length * 2;
-    var outputTokens = answer.Split(' ').Length * 2;
-    var totalTokens = inputTokens + outputTokens;
+
+    // GOTCHA #1 (cached input): when the caller reuses a previously sent context
+    // (req.ReuseContext = true), the prompt prefix is served from cache and is
+    // billed at the cheaper cached rate instead of the normal input rate.
+    var promptTokens = req.Question.Split(' ').Length * 2;
+    var inputTokens = req.ReuseContext ? 0 : promptTokens;
+    var cachedInputTokens = req.ReuseContext ? promptTokens : 0;
+
+    // GOTCHA #2 (reasoning): the model "thinks" before answering. Those reasoning
+    // tokens are part of the output total, billed at the output rate — not a
+    // separate additive category.
+    var answerTokens = answer.Split(' ').Length * 2;
+    var reasoningTokens = answerTokens / 2;
+    var outputTokens = answerTokens + reasoningTokens;
+
+    var totalTokens = inputTokens + cachedInputTokens + outputTokens;
     var tokensUsed = currentUsage.GetValueOrDefault("token", 0);
 
     var decision = quota.Check(
@@ -195,12 +208,13 @@ app.MapPost("/api/ask", (AskRequest req, HttpContext http,
 
     var requestId = Guid.NewGuid().ToString();
     usage.TryRecord(tenantId.Value, "api_call", 1, $"{requestId}-call");
-    usage.TryRecord(tenantId.Value, "token", totalTokens, $"{requestId}-token");
+    usage.TryRecord(tenantId.Value, "token", totalTokens, $"{requestId}-token",
+        inputTokens, cachedInputTokens, outputTokens);
 
     return Results.Ok(new
     {
         answer,
-        tokensUsed = new { input = inputTokens, output = outputTokens, total = totalTokens }
+        tokensUsed = new { input = inputTokens, cached = cachedInputTokens, output = outputTokens, total = totalTokens }
     });
 });
 
@@ -227,11 +241,14 @@ app.MapGet("/usage", (HttpContext http, AuthService auth, UsageRepository usage,
     var callsUsed = currentUsage.GetValueOrDefault("api_call", 0);
     var tokensUsed = currentUsage.GetValueOrDefault("token", 0);
 
+    // Price each token category correctly: cached input is cheaper, and reasoning
+    // is already folded into the output total by /api/ask.
+    var tokenBreakdown = usage.GetMonthlyTokenBreakdown(tenantId.Value);
     var cost = pricing.CalculateCost(
-    apiCalls: callsUsed,
-    inputTokens: 0,
-    cachedInputTokens: 0,
-    outputTokens: tokensUsed);
+        apiCalls: callsUsed,
+        inputTokens: tokenBreakdown.inputTokens,
+        cachedInputTokens: tokenBreakdown.cachedInputTokens,
+        outputTokens: tokenBreakdown.outputTokens);
 
     var planInfo = plans.GetById(tenant.PlanId);
     return Results.Ok(new
@@ -298,7 +315,6 @@ app.MapPost("/webhooks/stripe", async (HttpContext http,
 
      var signature = http.Request.Headers["Stripe-Signature"];
      var webhookSecret = config["Stripe:WebhookSecret"];
-     Console.WriteLine($"[WEBHOOK] secret loaded: {(string.IsNullOrEmpty(webhookSecret) ? "NULL/EMPTY!" : webhookSecret[..12] + "...")}");
 
      Stripe.Event stripeEvent;
      try
@@ -307,7 +323,6 @@ app.MapPost("/webhooks/stripe", async (HttpContext http,
      }
      catch (Exception ex)
      {
-         Console.WriteLine($"[WEBHOOK] signature FAILED: {ex.Message}");
          return Results.Json(new { error = "Invalid signature", detail = ex.Message }, statusCode: 400);
      }
 
@@ -390,4 +405,4 @@ app.MapPost("/webhooks/stripe", async (HttpContext http,
 app.Run();
 
 public sealed record MeterRequest(string UsageType, int Quantity, string IdempotencyKey);
-public sealed record AskRequest(string Question);
+public sealed record AskRequest(string Question, bool ReuseContext = false);
