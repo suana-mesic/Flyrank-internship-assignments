@@ -1,4 +1,5 @@
 # Image Relevance & Auto-Tagging
+
 **Capstone — Backend AI Engineering | Week 10**
 **Intern:** Suana Mešić
 
@@ -25,6 +26,23 @@ dotnet run --project ImageApi
 The app creates its schema at startup (`Database/init.sql`, run by `DatabaseInitializer`), including the pgvector extension and the vector indexes.
 
 **Honest note:** only Postgres runs in Docker; the API runs with `dotnet run`. The assignment didn't ask for the app to be containerized, so I didn't add that complexity.
+
+### Fast path (skip classification)
+
+Classifying 50 images with a local vision model takes a while. To test
+immediately, the corpus is already classified and embedded in
+`seed/seed_imagedb.sql`. Restore it into the empty database **before the first
+run**:
+
+```bash
+docker compose up -d
+docker exec -i image-db psql -U image_user -d imagedb < seed/seed_imagedb.sql
+dotnet run --project ImageApi
+```
+
+Then `/review`, `/suggest-all`, and `dotnet test` work right away. The
+from-scratch path (ingest → classify → embed) is still available to regenerate
+everything.
 
 ### The models run locally (and why)
 
@@ -57,18 +75,18 @@ GET /posts/:id/suggestion ─► rank by cosine similarity (pgvector) ─► mis
 
 ## Endpoints
 
-| Method | Route | |
-|---|---|---|
-| POST | `/ingest/images` · `/ingest/posts` | load the corpus and seed demo posts |
-| POST | `/classify/{id}` · `/classify/batch?limit=N` | vision tagging (single / batch with retries) |
-| POST | `/embed/images` · `/embed/posts` | embed captions and post text into pgvector |
-| GET | `/posts/{id}/matches?limit=N` | raw ranked images for a post (by similarity) |
-| GET | `/posts/{id}/suggestion` | best image through the guard, or "no good match" |
-| GET | `/posts/{id}/guard/{imageId}` | evaluate a forced pairing (used to prove the guard) |
-| POST | `/suggest-all` · `/posts/{id}/suggest` | store pairing suggestions |
-| POST | `/pairings/{id}/approve` · `/pairings/{id}/reject` | human review actions |
-| GET | `/review` | one-page HTML table with thumbnails + approve/reject |
-| GET | `/costs` | cost rollup per operation |
+| Method | Route                                              |                                                      |
+| ------ | -------------------------------------------------- | ---------------------------------------------------- |
+| POST   | `/ingest/images` · `/ingest/posts`                 | load the corpus and seed demo posts                  |
+| POST   | `/classify/{id}` · `/classify/batch?limit=N`       | vision tagging (single / batch with retries)         |
+| POST   | `/embed/images` · `/embed/posts`                   | embed captions and post text into pgvector           |
+| GET    | `/posts/{id}/matches?limit=N`                      | raw ranked images for a post (by similarity)         |
+| GET    | `/posts/{id}/suggestion`                           | best image through the guard, or "no good match"     |
+| GET    | `/posts/{id}/guard/{imageId}`                      | evaluate a forced pairing (used to prove the guard)  |
+| POST   | `/suggest-all` · `/posts/{id}/suggest`             | store pairing suggestions                            |
+| POST   | `/pairings/{id}/approve` · `/pairings/{id}/reject` | human review actions                                 |
+| GET    | `/review`                                          | one-page HTML table with thumbnails + approve/reject |
+| GET    | `/costs`                                           | cost rollup per operation                            |
 
 ---
 
@@ -90,9 +108,9 @@ Verified: a valid structured payload parses into all fields with confidence in [
 
 ### Semantic matching
 
-Captions and post text live in one 768-dimensional space. For a post, images are ranked by cosine similarity using pgvector's `<=>` operator (`similarity = 1 - distance`). Because it matches on *meaning*, a caption that never says "red fox" still surfaces for the red-fox post, and a paraphrase matches a paraphrase.
+Captions and post text live in one 768-dimensional space. For a post, images are ranked by cosine similarity using pgvector's `<=>` operator (`similarity = 1 - distance`). Because it matches on _meaning_, a caption that never says "red fox" still surfaces for the red-fox post, and a paraphrase matches a paraphrase.
 
-One thing worth understanding: this is text-to-text matching (post text ↔ image *caption*), because the vision model already turned each image into a sentence. So ranking reflects how alike the two descriptions are, not raw pixels — which is why, on the fox post, a richly-described arctic fox (0.81) can edge out a tersely-captioned red fox (0.79). Both are foxes and both sit well above wolves and dogs, which is what matters.
+One thing worth understanding: this is text-to-text matching (post text ↔ image _caption_), because the vision model already turned each image into a sentence. So ranking reflects how alike the two descriptions are, not raw pixels — which is why, on the fox post, a richly-described arctic fox (0.81) can edge out a tersely-captioned red fox (0.79). Both are foxes and both sit well above wolves and dogs, which is what matters.
 
 ### Mismatch guard — the decision core
 
@@ -115,11 +133,11 @@ Verified live: forcing a wolf onto the fox post is refused; the deep-sea post re
 dotnet test        # 6 tests
 ```
 
-| Required | Test |
-|---|---|
-| Schema-validation path | `ValidVisionJson_ParsesIntoAllFields`, `MalformedJson_IsRejected` |
+| Required                          | Test                                                                                           |
+| --------------------------------- | ---------------------------------------------------------------------------------------------- |
+| Schema-validation path            | `ValidVisionJson_ParsesIntoAllFields`, `MalformedJson_IsRejected`                              |
 | Mismatch guard (fox rejects wolf) | `WolfOnFoxPost_HighSimilarity_RejectedByTagMismatch`, plus the accept and low-similarity cases |
-| Eval — top-1 precision | `TopOneMatch_PrecisionOnLabeledPosts_IsHigh` |
+| Eval — top-1 precision            | `TopOneMatch_PrecisionOnLabeledPosts_IsHigh`                                                   |
 
 The guard and schema tests are pure (no DB). The eval test hits the real pgvector database: for each of the five labeled posts it takes the top-ranked image and checks its category against the post's animal, then asserts top-1 precision — which comes out at 100% (5/5) on this corpus.
 
