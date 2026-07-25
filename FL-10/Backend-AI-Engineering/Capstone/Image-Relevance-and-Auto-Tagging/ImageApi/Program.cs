@@ -1,6 +1,7 @@
 using ImageApi.Database;
 using ImageApi.Repositories;
 using ImageApi.Services;
+using Microsoft.Extensions.FileProviders;
 
 DotNetEnv.Env.TraversePath().Load();
 
@@ -18,13 +19,23 @@ builder.Services.AddSingleton(new TagRepository(connStr));
 builder.Services.AddSingleton(new CostRepository(connStr));
 builder.Services.AddSingleton(new VectorRepository(connStr));
 builder.Services.AddSingleton(new MatchRepository(connStr));
+builder.Services.AddSingleton(new PairingRepository(connStr));
 builder.Services.AddHttpClient<VisionService>(c => c.Timeout = TimeSpan.FromMinutes(5));
 builder.Services.AddHttpClient<EmbeddingService>();
 builder.Services.AddSingleton<IngestService>();
-builder.Services.AddSingleton<GuardService>();
+builder.Services.AddSingleton<GuardService>();    
+builder.Services.AddSingleton<PairingService>();
 
 
 var app = builder.Build();
+
+// Serve the corpus images at /corpus/<filename> so the review page can show them.
+var corpusPath = builder.Configuration["Images:CorpusPath"]!;
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(corpusPath),
+    RequestPath = "/corpus"
+});
 
 app.MapGet("/", () => "Image Relevance API is running");
 
@@ -246,6 +257,85 @@ app.MapGet("/posts/{id:int}/guard/{imageId:int}", (int id, int imageId,
         decision = verdict.Decision.ToString(),
         reason = verdict.Reason
     });
+});
+
+// Suggest for one post.
+app.MapPost("/posts/{id:int}/suggest", (int id, PairingService pairing) =>
+{
+    var result = pairing.SuggestForPost(id);
+    return result is null ? Results.NotFound(new { error = "Post not found" }) : Results.Ok(result);
+});
+
+// Suggest for every post (populates the review table in one call).
+app.MapPost("/suggest-all", (PostRepository posts, PairingService pairing) =>
+{
+    var results = posts.GetAll().Select(p => pairing.SuggestForPost(p.id)).ToList();
+    return Results.Ok(new { suggested = results.Count });
+});
+
+// Approve / reject a pairing.
+app.MapPost("/pairings/{id:int}/approve", (int id, PairingRepository pairings) =>
+    pairings.SetStatus(id, "approved") ? Results.Ok(new { id, status = "approved" })
+                                       : Results.NotFound());
+
+app.MapPost("/pairings/{id:int}/reject", (int id, PairingRepository pairings) =>
+    pairings.SetStatus(id, "rejected") ? Results.Ok(new { id, status = "rejected" })
+                                       : Results.NotFound());
+
+// The one-page review surface: a table of pairings with approve/reject buttons.
+app.MapGet("/review", (PairingRepository pairings) =>
+{
+    var rows = pairings.GetAll();
+    var sb = new System.Text.StringBuilder();
+    sb.Append("""
+        <!doctype html><html><head><meta charset="utf-8"><title>Image Review</title>
+        <style>
+          body{font-family:system-ui,sans-serif;margin:24px;color:#111}
+          table{border-collapse:collapse;width:100%}
+          th,td{border:1px solid #ddd;padding:8px;text-align:left;vertical-align:top}
+          img{height:64px;border-radius:4px}
+          .no-match{color:#b00}
+          button{cursor:pointer;padding:4px 10px;margin-right:4px}
+        </style></head><body>
+        <h1>Image Review</h1>
+        <table><tr><th>Post</th><th>Image</th><th>Subject</th><th>Similarity</th>
+        <th>Status</th><th>Reason</th><th>Actions</th></tr>
+        """);
+
+    foreach (var r in rows)
+    {
+        var img = r.Filename is null
+            ? "<span class='no-match'>— no match —</span>"
+            : $"<img src='/corpus/{r.Filename}' alt='{r.Filename}'><br>{r.Filename}";
+        var sim = r.Similarity is null ? "" : r.Similarity.Value.ToString("0.00");
+        sb.Append($"""
+            <tr>
+              <td>{r.PostSlug}</td>
+              <td>{img}</td>
+              <td>{r.Subject ?? ""}</td>
+              <td>{sim}</td>
+              <td>{r.Status}</td>
+              <td>{r.Reason ?? ""}</td>
+              <td>
+                <button onclick="act({r.Id},'approve')">Approve</button>
+                <button onclick="act({r.Id},'reject')">Reject</button>
+              </td>
+            </tr>
+            """);
+    }
+
+    sb.Append("""
+        </table>
+        <script>
+          async function act(id, what) {
+            await fetch(`/pairings/${id}/${what}`, { method: 'POST' });
+            location.reload();
+          }
+        </script>
+        </body></html>
+        """);
+
+    return Results.Content(sb.ToString(), "text/html");
 });
 
 app.Run();
