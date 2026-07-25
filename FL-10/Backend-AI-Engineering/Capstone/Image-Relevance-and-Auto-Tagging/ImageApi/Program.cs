@@ -17,6 +17,7 @@ builder.Services.AddSingleton(new PostRepository(connStr));
 builder.Services.AddSingleton(new TagRepository(connStr));
 builder.Services.AddSingleton(new CostRepository(connStr));
 builder.Services.AddSingleton(new VectorRepository(connStr));
+builder.Services.AddSingleton(new MatchRepository(connStr));
 builder.Services.AddHttpClient<VisionService>(c => c.Timeout = TimeSpan.FromMinutes(5));
 builder.Services.AddHttpClient<EmbeddingService>();
 builder.Services.AddSingleton<IngestService>();
@@ -174,6 +175,23 @@ app.MapPost("/embed/posts", async (PostRepository posts, VectorRepository vector
         done++;
     }
     return Results.Ok(new { embedded = done });
+});
+
+// Returns the top-ranked images for a post, by semantic similarity.
+app.MapGet("/posts/{id:int}/matches", (int id, MatchRepository match, int? limit) =>
+{
+    var top = match.RankImagesForPost(id, limit ?? 5);
+    return Results.Ok(new
+    {
+        postId = id,
+        matches = top.Select(m => new
+        {
+            m.imageId,
+            m.filename,
+            m.subject,
+            similarity = Math.Round(m.similarity, 4)
+        })
+    });
 });
 
 app.Run();
