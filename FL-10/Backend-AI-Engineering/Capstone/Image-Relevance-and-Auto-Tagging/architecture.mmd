@@ -1,0 +1,51 @@
+flowchart TB
+    corpus["corpus/<br/>~50 labeled images"]
+    posts["demo posts<br/>(fox, wolf, ... , deep-sea)"]
+
+    subgraph api["ImageApi (.NET 9 minimal API · port 5211)"]
+        direction TB
+        ingest["/ingest/images · /ingest/posts"]
+        classify["/classify/batch<br/>vision tagging + retries"]
+        embedI["/embed/images"]
+        embedP["/embed/posts"]
+        match["rank by cosine similarity"]
+        guard{"mismatch guard<br/>A: similarity < 0.67?<br/>B: tags disagree?"}
+        review["/review<br/>approve / reject"]
+        costs["/costs<br/>rollup per call"]
+    end
+
+    subgraph ollama["local Ollama (free · no key)"]
+        direction TB
+        llava["llava:13b<br/>image -> structured tags"]
+        nomic["nomic-embed-text<br/>text -> vector(768)"]
+    end
+
+    subgraph db["Postgres 16 + pgvector (Docker · 5435)"]
+        direction TB
+        images[("images")]
+        tags[("image_tags<br/>subject·caption·confidence")]
+        ivec[("image_vectors<br/>vector(768) · HNSW")]
+        pvec[("post_vectors<br/>vector(768) · HNSW")]
+        pairings[("pairings<br/>suggested·approved·no_match")]
+        cost[("cost_events")]
+    end
+
+    corpus --> ingest --> images
+    posts --> ingest
+    classify --> llava --> tags
+    embedI --> nomic --> ivec
+    embedP --> nomic
+    embedP --> pvec
+
+    pvec --> match
+    ivec --> match
+    match --> guard
+    guard -->|accept| review
+    guard -->|reject: low sim OR wrong tags| review
+    review --> pairings
+
+    classify -.records.-> cost
+    embedI -.records.-> cost
+    embedP -.records.-> cost
+    cost --> costs
+    tags -.-> match
