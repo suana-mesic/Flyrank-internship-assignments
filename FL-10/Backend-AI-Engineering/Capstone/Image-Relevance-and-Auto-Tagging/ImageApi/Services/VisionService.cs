@@ -15,19 +15,16 @@ public sealed class VisionService
     {
         _http = http;
         _baseUrl = config["AI:OllamaUrl"] ?? "http://localhost:11434";
-        _model = config["AI:VisionModel"] ?? "llava";
+        _model = config["AI:VisionModel"] ?? "llava:13b";
         _corpusPath = config["Images:CorpusPath"] ?? throw new InvalidOperationException("Missing Images__CorpusPath");
     }
 
-    public async Task<ImageTags> ClassifyAsync(string filename)
+    public async Task<VisionResult> ClassifyAsync(string filename)
     {
-        // 1. Read image bytes and base64-encode them (Ollama takes images as base64).
         var path = Path.Combine(_corpusPath, filename);
         var bytes = await File.ReadAllBytesAsync(path);
         var base64 = Convert.ToBase64String(bytes);
 
-        // 2. Build the request. "format" is a JSON schema -> Ollama structured output,
-        //    so the model must answer in our exact shape.
         var requestBody = new
         {
             model = _model,
@@ -52,7 +49,6 @@ public sealed class VisionService
             }
         };
 
-        // 3. Call local Ollama. Long timeout: vision models can be slow on CPU.
         var resp = await _http.PostAsJsonAsync($"{_baseUrl}/api/generate", requestBody);
         if (!resp.IsSuccessStatusCode)
         {
@@ -60,12 +56,16 @@ public sealed class VisionService
             throw new HttpRequestException($"Ollama {(int)resp.StatusCode}: {body}");
         }
 
-        // 4. Ollama returns the model's answer as a JSON string in the "response" field.
         var root = await resp.Content.ReadFromJsonAsync<JsonElement>();
         var text = root.GetProperty("response").GetString()!;
 
-        // 5. Deserialize that JSON string into our ImageTags record.
-        return JsonSerializer.Deserialize<ImageTags>(text,
+        // Token counts Ollama reports for this call (used for cost tracking).
+        var promptTokens = root.TryGetProperty("prompt_eval_count", out var p) ? p.GetInt32() : 0;
+        var outputTokens = root.TryGetProperty("eval_count", out var e) ? e.GetInt32() : 0;
+
+        var tags = JsonSerializer.Deserialize<ImageTags>(text,
             new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+
+        return new VisionResult(tags, promptTokens, outputTokens);
     }
 }

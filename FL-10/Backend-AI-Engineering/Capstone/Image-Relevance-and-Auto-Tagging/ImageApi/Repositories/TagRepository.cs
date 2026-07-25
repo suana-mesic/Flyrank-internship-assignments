@@ -36,5 +36,21 @@ namespace ImageApi.Repositories
             cmd.Parameters.AddWithValue("model", model);
             cmd.ExecuteNonQuery();
         }
+
+
+        // Returns (imageId, caption) for every classified image.
+        public List<(int imageId, string caption)> GetAllCaptions()
+        {
+            using var conn = new NpgsqlConnection(_connStr);
+            conn.Open();
+            using var cmd = new NpgsqlCommand(
+                "SELECT image_id, caption FROM image_tags", conn);
+
+            var list = new List<(int, string)>();
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+                list.Add((reader.GetInt32(0), reader.GetString(1)));
+            return list;
+        }
     }
 }

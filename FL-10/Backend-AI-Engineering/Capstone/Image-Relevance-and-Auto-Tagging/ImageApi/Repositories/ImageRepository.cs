@@ -50,5 +50,22 @@ namespace ImageApi.Repositories
             cmd.Parameters.AddWithValue("id", id);
             cmd.ExecuteNonQuery();
         }
+
+        // Returns all images with a given status (e.g. "pending"), for batch work.
+        public List<(int id, string filename)> GetByStatus(string status)
+        {
+            using var conn = new NpgsqlConnection(_connStr);
+            conn.Open();
+            using var cmd = new NpgsqlCommand(
+                "SELECT id, filename FROM images WHERE status = @s ORDER BY id", conn);
+            cmd.Parameters.AddWithValue("s", status);
+
+            var list = new List<(int, string)>();
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+                list.Add((reader.GetInt32(0), reader.GetString(1)));
+            return list;
+        }
+
     }
 }
