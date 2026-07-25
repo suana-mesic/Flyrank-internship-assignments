@@ -338,4 +338,24 @@ app.MapGet("/review", (PairingRepository pairings) =>
     return Results.Content(sb.ToString(), "text/html");
 });
 
+// Cost rollup: total AI calls, tokens, and cost per operation.
+app.MapGet("/costs", (CostRepository costs) =>
+{
+    var rows = costs.Summary();
+    return Results.Ok(new
+    {
+        byOperation = rows.Select(r => new
+        {
+            r.operation,
+            r.calls,
+            inputTokens = r.inputTokens,
+            outputTokens = r.outputTokens,
+            cost = r.cost
+        }),
+        totalCalls = rows.Sum(r => r.calls),
+        totalTokens = rows.Sum(r => r.inputTokens + r.outputTokens),
+        totalCost = rows.Sum(r => r.cost)
+    });
+});
+
 app.Run();
