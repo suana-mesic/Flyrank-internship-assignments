@@ -21,6 +21,7 @@ builder.Services.AddSingleton(new MatchRepository(connStr));
 builder.Services.AddHttpClient<VisionService>(c => c.Timeout = TimeSpan.FromMinutes(5));
 builder.Services.AddHttpClient<EmbeddingService>();
 builder.Services.AddSingleton<IngestService>();
+builder.Services.AddSingleton<GuardService>();
 
 
 var app = builder.Build();
@@ -191,6 +192,59 @@ app.MapGet("/posts/{id:int}/matches", (int id, MatchRepository match, int? limit
             m.subject,
             similarity = Math.Round(m.similarity, 4)
         })
+    });
+});
+
+// Suggests the best image for a post, or refuses with a reason if the guard rejects it.
+app.MapGet("/posts/{id:int}/suggestion", (int id,
+    PostRepository posts, MatchRepository match, GuardService guard) =>
+{
+    var post = posts.GetById(id);
+    if (post is null) return Results.NotFound(new { error = "Post not found" });
+
+    var ranked = match.RankImagesForPost(id, 1);
+    if (ranked.Count == 0) return Results.Ok(new { status = "no candidates" });
+
+    var best = ranked[0];
+    var verdict = guard.Evaluate(post.Value.topic, best.subject, best.similarity);
+
+    if (verdict.Decision == GuardDecision.Accept)
+        return Results.Ok(new
+        {
+            status = "suggested",
+            image = best.filename,
+            best.subject,
+            similarity = Math.Round(best.similarity, 4),
+            reason = verdict.Reason
+        });
+
+    return Results.Ok(new
+    {
+        status = "no good match",
+        reason = verdict.Reason,
+        bestCandidate = new { best.filename, best.subject, similarity = Math.Round(best.similarity, 4) }
+    });
+});
+
+// Evaluates a forced (post, image) pairing — used to prove the guard rejects a wrong image.
+app.MapGet("/posts/{id:int}/guard/{imageId:int}", (int id, int imageId,
+    PostRepository posts, TagRepository tags, MatchRepository match, GuardService guard) =>
+{
+    var post = posts.GetById(id);
+    var subject = tags.GetSubject(imageId);
+    var sim = match.SimilarityFor(id, imageId);
+    if (post is null || subject is null || sim is null)
+        return Results.NotFound(new { error = "Post or image not found / not embedded" });
+
+    var verdict = guard.Evaluate(post.Value.topic, subject, sim.Value);
+    return Results.Ok(new
+    {
+        post = post.Value.slug,
+        imageId,
+        subject,
+        similarity = Math.Round(sim.Value, 4),
+        decision = verdict.Decision.ToString(),
+        reason = verdict.Reason
     });
 });
 

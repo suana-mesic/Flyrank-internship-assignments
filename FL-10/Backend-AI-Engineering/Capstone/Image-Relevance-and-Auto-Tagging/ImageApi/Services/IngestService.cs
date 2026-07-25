@@ -34,25 +34,25 @@ namespace ImageApi.Services
         // image in the corpus on purpose, to later prove the "no good match" path.
         public int SeedPosts()
         {
-            var seed = new (string slug, string title, string body)[]
-            {
+            var seed = new (string slug, string title, string body, string topic)[]
+       {
             ("red-fox", "The Red Fox",
-             "The red fox (Vulpes vulpes) is a small agile predator with a bushy tail and reddish-orange coat, often seen hunting in fields and snow."),
+             "The red fox (Vulpes vulpes) is a small agile predator with a bushy tail and reddish-orange coat, often seen hunting in fields and snow.", "fox"),
             ("gray-wolves", "Gray Wolves of the North",
-             "Gray wolves are large wild canines that live and hunt in packs across northern forests and tundra."),
+             "Gray wolves are large wild canines that live and hunt in packs across northern forests and tundra.", "wolf"),
             ("backyard-rabbits", "Backyard Rabbits",
-             "Rabbits are small long-eared herbivores that graze on grass and are common in gardens and meadows."),
+             "Rabbits are small long-eared herbivores that graze on grass and are common in gardens and meadows.", "rabbit"),
             ("owls-at-night", "Owls at Night",
-             "Owls are nocturnal birds of prey with large forward-facing eyes and silent flight, hunting small animals after dark."),
+             "Owls are nocturnal birds of prey with large forward-facing eyes and silent flight, hunting small animals after dark.", "owl"),
             ("elephants-of-africa", "Elephants of Africa",
-             "African elephants are the largest land animals, with long trunks and tusks, roaming the savanna in family herds."),
+             "African elephants are the largest land animals, with long trunks and tusks, roaming the savanna in family herds.", "elephant"),
             ("deep-sea-anglerfish", "Creatures of the Deep Sea",
-             "In the crushing dark of the deep ocean, the anglerfish lures prey with a glowing bioluminescent light on its head."),
-            };
+             "In the crushing dark of the deep ocean, the anglerfish lures prey with a glowing bioluminescent light on its head.", "anglerfish"),
+       };
 
             var inserted = 0;
             foreach (var p in seed)
-                if (_posts.Insert(p.slug, p.title, p.body)) inserted++;
+                if (_posts.Insert(p.slug, p.title, p.body, p.topic)) inserted++;
             return inserted;
         }
     }

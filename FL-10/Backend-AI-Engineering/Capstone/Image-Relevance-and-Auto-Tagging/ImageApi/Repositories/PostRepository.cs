@@ -7,20 +7,35 @@ public class PostRepository
     private readonly string _connStr;
     public PostRepository(string connStr) => _connStr = connStr;
 
-    // Inserts one post; returns true only if a new row was added (slug is UNIQUE).
-    public bool Insert(string slug, string title, string body)
+    // Upserts a post; on existing slug it updates fields (so re-seeding backfills topic).
+    public bool Insert(string slug, string title, string body, string topic)
     {
         using var conn = new NpgsqlConnection(_connStr);
         conn.Open();
         using var cmd = new NpgsqlCommand("""
-            INSERT INTO posts (slug, title, body)
-            VALUES (@s, @t, @b)
-            ON CONFLICT (slug) DO NOTHING
+            INSERT INTO posts (slug, title, body, topic)
+            VALUES (@s, @t, @b, @topic)
+            ON CONFLICT (slug) DO UPDATE
+                SET title = EXCLUDED.title, body = EXCLUDED.body, topic = EXCLUDED.topic
             """, conn);
         cmd.Parameters.AddWithValue("s", slug);
         cmd.Parameters.AddWithValue("t", title);
         cmd.Parameters.AddWithValue("b", body);
+        cmd.Parameters.AddWithValue("topic", topic);
         return cmd.ExecuteNonQuery() > 0;
+    }
+
+    // Fetches one post (id, slug, title, topic).
+    public (int id, string slug, string title, string topic)? GetById(int id)
+    {
+        using var conn = new NpgsqlConnection(_connStr);
+        conn.Open();
+        using var cmd = new NpgsqlCommand(
+            "SELECT id, slug, title, COALESCE(topic,'') FROM posts WHERE id = @id", conn);
+        cmd.Parameters.AddWithValue("id", id);
+        using var reader = cmd.ExecuteReader();
+        if (!reader.Read()) return null;
+        return (reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3));
     }
 
     // Returns all posts (id, title, body) to embed.

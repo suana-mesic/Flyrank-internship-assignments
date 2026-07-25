@@ -52,5 +52,16 @@ namespace ImageApi.Repositories
                 list.Add((reader.GetInt32(0), reader.GetString(1)));
             return list;
         }
+
+        // Returns the subject tag of one image (null if not classified).
+        public string? GetSubject(int imageId)
+        {
+            using var conn = new NpgsqlConnection(_connStr);
+            conn.Open();
+            using var cmd = new NpgsqlCommand(
+                "SELECT subject FROM image_tags WHERE image_id = @id", conn);
+            cmd.Parameters.AddWithValue("id", imageId);
+            return cmd.ExecuteScalar() as string;
+        }
     }
 }

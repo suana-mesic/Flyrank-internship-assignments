@@ -81,6 +81,7 @@ CREATE INDEX IF NOT EXISTS idx_image_vectors_hnsw
     ON image_vectors USING hnsw (embedding vector_cosine_ops);
 CREATE INDEX IF NOT EXISTS idx_post_vectors_hnsw
     ON post_vectors USING hnsw (embedding vector_cosine_ops);
+ALTER TABLE posts ADD COLUMN IF NOT EXISTS topic TEXT;
 
 -- Ordinary b-tree indexes for the columns we filter/join on often.
 CREATE INDEX IF NOT EXISTS idx_images_status   ON images(status);

@@ -33,4 +33,20 @@ public class MatchRepository
             list.Add((reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetDouble(3)));
         return list;
     }
+
+    // Cosine similarity between one specific post and one specific image (null if missing).
+    public double? SimilarityFor(int postId, int imageId)
+    {
+        using var conn = new NpgsqlConnection(_connStr);
+        conn.Open();
+        using var cmd = new NpgsqlCommand("""
+            SELECT 1 - (iv.embedding <=> pv.embedding)
+            FROM post_vectors pv, image_vectors iv
+            WHERE pv.post_id = @pid AND iv.image_id = @iid
+            """, conn);
+        cmd.Parameters.AddWithValue("pid", postId);
+        cmd.Parameters.AddWithValue("iid", imageId);
+        var result = cmd.ExecuteScalar();
+        return result is null or DBNull ? null : Convert.ToDouble(result);
+    }
 }
