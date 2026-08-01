@@ -1,0 +1,43 @@
+# FlyRank capstone manifest — read by the automated evaluator.
+name: image-relevance-auto-tagging
+description: >
+  An AI image-understanding and content-matching engine: a vision model tags a
+  corpus of ~50 animal images into validated structured metadata, captions and
+  posts are embedded into pgvector, and each post is matched to the best image
+  through a mismatch guard that refuses a wrong pairing (wolf on a fox post) or
+  says "no confident match" with reasons when nothing clears the bar.
+
+# One command to boot the system on a clean machine.
+# Postgres+pgvector in Docker; the API runs with dotnet. Vision/embeddings use local Ollama
+# (llava:13b + nomic-embed-text) — pull them once with: ollama pull llava:13b && ollama pull nomic-embed-text
+run: docker compose up -d && dotnet run --project ImageApi
+
+# Restore the already-classified+embedded corpus so the demo/eval has data immediately
+# (skips the slow from-scratch vision pass). Run before the first API start.
+seed: docker exec -i image-db psql -U image_user -d imagedb < seed/seed_imagedb.sql
+
+# Runs the automated test suite (6 tests: schema, guard, top-1 eval).
+test: dotnet test
+
+base_url: http://localhost:5211
+
+endpoints:
+  # Ingestion + AI batch pipeline
+  - POST /ingest/images
+  - POST /ingest/posts
+  - POST /classify/{id}
+  - POST /classify/batch?limit=N
+  - POST /embed/images
+  - POST /embed/posts
+  # Matching + guard
+  - GET /posts/{id}/matches?limit=N
+  - GET /posts/{id}/suggestion
+  - GET /posts/{id}/guard/{imageId}
+  - POST /posts/{id}/suggest
+  - POST /suggest-all
+  # Human-in-the-loop review
+  - POST /pairings/{id}/approve
+  - POST /pairings/{id}/reject
+  - GET /review
+  # Cost tracking
+  - GET /costs

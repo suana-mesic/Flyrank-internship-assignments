@@ -1,18 +1,22 @@
 # FL-01: AI Workflow Audit and Tool Setup
 
 **Track:** General AI Fluency
-**Week:** 1 | **Phase:** Setup
+**Week:** 1 · **Phase:** Onboarding / Setup
 **Intern:** Suana Mešić — Junior Backend Developer
 
 ---
 
-## Overview
+## Why this matters
 
-This audit maps 12 recurring tasks from my real week and classifies each using the Delegation framework (from Ethan Mollick's "On-boarding your AI Intern"). The goal: know where AI helps, where it wastes time, and where it should never be trusted.
+You can't improve a workflow you've never mapped. This audit takes 12 recurring tasks from my actual week and decides, for each one, whether AI belongs in it at all — and if so, how much leash it gets. Everything later in the track builds on this: knowing where AI helps, where it wastes my time, and where it should never be trusted.
+
+The classification framework is from Ethan Mollick's *On-boarding your AI Intern*: **Just me · Delegate to AI with review · Collaborate with AI · Fully automate.**
 
 ---
 
-## Workflow Audit Table
+## Workflow audit
+
+![Workflow audit table](workflow-audit-table.png)
 
 | # | Task | Classification | Rationale |
 |---|------|----------------|-----------|
@@ -29,36 +33,57 @@ This audit maps 12 recurring tasks from my real week and classifies each using t
 | 11 | Evening gaming | Just me | Recreation and personal enjoyment — just me. |
 | 12 | Writing code for projects (BookVerse) | Delegate to AI with review | AI assists, I own architecture and final decisions. |
 
-**Summary:** 7 tasks "Just me" · 4 "Delegate to AI with review" · 1 "Collaborate with AI"
+**Split:** 7 *Just me* · 4 *Delegate to AI with review* · 1 *Collaborate with AI* · 0 *Fully automate*.
+
+**On "Fully automate" — nothing landed here on purpose.** At this stage I don't have a task that's both repetitive enough and low-stakes enough that I'd let it run unattended. The moment I'd trust a task fully is the moment I've stopped reviewing it, and none of my current work qualifies — code gets committed, papers get submitted, students get taught. I'd rather name that honestly than invent a task to fill the box.
 
 ---
 
-## Three Target Tasks for FL-02 to FL-04
+## Three target tasks (reused in FL-02 → FL-04)
 
-### 1. Seminar Paper (Software Development II)
-*Classification: Delegate to AI with review*
-**Done well when:** no bugs in submitted code, consistent interface throughout, my own analysis and stance is present.
+Success is defined so I can tell pass from fail without arguing with myself later.
 
-### 2. Writing Code for Projects (BookVerse)
-*Classification: Delegate to AI with review*
-**Done well when:** no bugs, code is readable and clean, does exactly what was defined as the goal.
+### 1. Seminar paper — Software Development II
+*Delegate to AI with review*
+**Done well when:** every code sample compiles and runs with 0 errors, the same interface and terminology are used from the first page to the last, and at least one section is my own analysis and stance that AI did not write.
 
-### 3. FlyRank Assignment Tasks
-*Classification: Collaborate with AI*
-**Done well when:** reviewer accepts the submission, all criteria from the brief are met, no revisions requested.
+### 2. Project code — BookVerse
+*Delegate to AI with review*
+**Done well when:** the feature does exactly what was defined as the goal, the build passes with 0 warnings I didn't consciously accept, and a re-read the next day needs no "wait, what was this supposed to do" — it's readable and clean.
 
----
-
-## Tool Setup & Course Completion
-
-- **AI toolkit:** Accounts set up for the required AI assistants and Anthropic Academy.
-- **AI Project:** Created a dedicated project named "AI Fluency - FL Track" with custom instructions (who I am, tone preferences, current goals).
-- **Course:** Completed *AI Fluency: Framework & Foundations* (Anthropic Academy) — covering the 4D Framework (Delegation, Description, Discernment, Diligence), Generative AI fundamentals, and Diligence/transparency principles.
+### 3. FlyRank assignment tasks (weekly deliverables)
+*Collaborate with AI*
+**Done well when:** the reviewer accepts the submission on the first pass, every bullet in the brief's evaluation criteria is met, and no revision is requested.
 
 ---
 
-## Files in This Folder
+## Tool setup & course — evidenced
 
-- `workflow-audit-table.png` — visual version of the audit table
-- `project.png` — screenshot of the configured AI project
-- `project-instructions.png` — screenshot of the project's custom instructions
+| Requirement | Status | Evidence |
+|---|---|---|
+| Claude account + Project | Done | `project.png`, `project-instructions.png` |
+| ChatGPT account | Done | `chatgpt-account.png` — signed in as *suana* |
+| Anthropic Academy account | Done | course access, screenshot below |
+| *AI Fluency: Framework & Foundations* — enrolled + ≥ first module | **Completed in full** | `academy-course-completion.png` — certificate issued |
+
+**Certificate verification:** https://verify.skilljar.com/c/ris62pnvezi9
+
+The course covers the **4D Framework** — Delegation, Description, Discernment, Diligence — which is the same lens this audit is built on.
+
+### Claude Project
+Named **"AI Fluency – FL Track"**, with custom instructions covering the three required areas:
+
+- **Who I am** — a CS student and junior backend developer in Bosnia and Herzegovina, completing the FlyRank AI Internship (General AI Fluency track).
+- **Tone** — direct and concise, no unnecessary praise, push back when my thinking is unclear, act as a thinking partner rather than an answer machine.
+- **Current goals** — build practical AI fluency via the 4D Framework, develop my developer portfolio, and land my first professional backend role.
+
+---
+
+## Files in this folder
+
+- `README.md` — this file
+- `workflow-audit-table.png` — the audit, visual version
+- `project.png` — the configured Claude Project
+- `project-instructions.png` — the Project's custom instructions
+- `chatgpt-account.png` — ChatGPT account, signed in
+- `academy-course-completion.png` — AI Fluency course completed, certificate uploaded
