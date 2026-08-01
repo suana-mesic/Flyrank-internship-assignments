@@ -1,0 +1,26 @@
+flowchart LR
+    client["Client"]
+
+    subgraph api["BillingApi (.NET 9)"]
+        post["POST /reports<br/>enqueue → 202"]
+        status["GET /reports/:id<br/>status + link"]
+        dl["GET /reports/:id/download<br/>stream from disk"]
+        worker["ReportWorker<br/>(BackgroundService)"]
+        pdf["ReportService<br/>QuestPDF"]
+    end
+
+    subgraph db["Postgres (billing)"]
+        reports[("reports<br/>pending→processing→done")]
+        usage[("usage_events · tenants · plans")]
+    end
+
+    disk[["reports/ folder<br/>report-{id}.pdf"]]
+
+    client -->|1. request| post --> reports
+    worker -->|2. claim oldest pending<br/>FOR UPDATE SKIP LOCKED| reports
+    worker -->|3. aggregate| usage
+    worker --> pdf -->|4. bytes| worker
+    worker -->|5. write file| disk
+    worker -->|6. mark done + path| reports
+    client -->|poll| status --> reports
+    client -->|download| dl --> disk
