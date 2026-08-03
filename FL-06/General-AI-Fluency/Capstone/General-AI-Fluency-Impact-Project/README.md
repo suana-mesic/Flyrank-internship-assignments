@@ -13,7 +13,7 @@ Three deliverables: a live personal brand website, a shipped personal agent, and
 **Live:** https://suana-mesic.github.io
 **Source:** https://github.com/suana-mesic/suana-mesic.github.io
 
-One page, plain HTML and CSS, no framework. It carries my positioning (who I am and what I do), a BookVerse case study written in the three-beat shape (problem → what I did → what came of it), and working links to GitHub, my CV (PDF), and a booking link. Hosted on GitHub Pages; HTTPS is automatic (GitHub provisions a Let's Encrypt certificate), so the site loads securely with no manual setup.
+One page, plain HTML and CSS, no framework. It carries my positioning (who I am and what I do), a BookVerse case study written in the three-beat shape (problem → what I did → what came of it), and working links to LinkedIn, GitHub, my CV (PDF), and a booking link. Hosted on GitHub Pages; HTTPS is automatic (GitHub provisions a Let's Encrypt certificate), so the site loads securely with no manual setup.
 
 I deliberately kept it a single hand-written page rather than reaching for a framework — the point of this site is that I can explain every line of it, and that it loads instantly and works on a phone. A FlyRank subdomain (`suana.flyrank.ai`, via a CNAME to the GitHub Pages site) is the planned custom-domain step; the site itself doesn't change when it's pointed there — the custom domain is a pointer, not a migration.
 
