@@ -2,13 +2,41 @@
 using TaskApi.Store;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddSingleton<ITaskStore, InMemoryTaskStore>();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(o =>
+{
+    o.SwaggerDoc("v1", new() { Title = "Task API", Version = "1.0" });
+});
+
 var app = builder.Build();
 
+// Swagger UI served at /docs (the OpenAPI JSON lives at /swagger/v1/swagger.json).
+app.UseSwagger();
+app.UseSwaggerUI(o =>
+{
+    o.SwaggerEndpoint("/swagger/v1/swagger.json", "Task API v1");
+    o.RoutePrefix = "docs";
+});
+
+// --- Root & health ---
 app.MapGet("/", () => new { name = "Task API", version = "1.0", endpoints = new[] { "/tasks" } });
 app.MapGet("/health", () => new { status = "ok" });
 
-app.MapGet("/tasks", (ITaskStore store) => Results.Ok(store.GetAll()));
+// --- Read ---
+app.MapGet("/tasks", (ITaskStore store, bool? done, string? search) =>
+{
+    IEnumerable<TaskItem> tasks = store.GetAll();
+
+    if (done is not null)
+        tasks = tasks.Where(t => t.Done == done);
+
+    if (!string.IsNullOrWhiteSpace(search))
+        tasks = tasks.Where(t => t.Title.Contains(search, StringComparison.OrdinalIgnoreCase));
+
+    return Results.Ok(tasks.ToList());
+});
 
 app.MapGet("/tasks/{id:int}", (int id, ITaskStore store) =>
 {
@@ -18,6 +46,7 @@ app.MapGet("/tasks/{id:int}", (int id, ITaskStore store) =>
         : Results.Ok(task);
 });
 
+// --- Create ---
 app.MapPost("/tasks", (CreateTaskRequest req, ITaskStore store) =>
 {
     if (string.IsNullOrWhiteSpace(req.Title))
@@ -27,7 +56,7 @@ app.MapPost("/tasks", (CreateTaskRequest req, ITaskStore store) =>
     return Results.Created($"/tasks/{task.Id}", task);
 });
 
-// PUT /tasks/{id} -> updates title and/or done. Unknown id -> 404, empty/invalid body -> 400.
+// --- Update ---
 app.MapPut("/tasks/{id:int}", (int id, UpdateTaskRequest req, ITaskStore store) =>
 {
     if (req is null || (req.Title is null && req.Done is null))
@@ -42,12 +71,25 @@ app.MapPut("/tasks/{id:int}", (int id, UpdateTaskRequest req, ITaskStore store) 
         : Results.Ok(updated);
 });
 
-// DELETE /tasks/{id} -> 204 (no body) on success, 404 if the task doesn't exist.
+// --- Delete ---
 app.MapDelete("/tasks/{id:int}", (int id, ITaskStore store) =>
 {
     return store.Delete(id)
         ? Results.NoContent()
         : Results.NotFound(new { error = $"Task {id} not found" });
+});
+
+// --- Optional extras ---
+app.MapGet("/stats", (ITaskStore store) =>
+{
+    var all = store.GetAll();
+    return Results.Ok(new { total = all.Count, done = all.Count(t => t.Done), open = all.Count(t => !t.Done) });
+});
+
+app.MapPost("/reset", (ITaskStore store) =>
+{
+    store.Reset();
+    return Results.Ok(new { message = "Tasks reset to the 3 seed items" });
 });
 
 app.Run();
