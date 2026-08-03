@@ -90,7 +90,7 @@ This is the baseline — it answers *a* question, just not *mine*.
 
 ---
 
-## Version 5 — layer added: CONSTRAINTS + QUALITY BAR
+## Version 5 — layer added: CONSTRAINTS
 
 **Prompt:**
 > Explain Clean Architecture for a junior backend interview. Context: I built an ASP.NET Core e-commerce backend (BookVerse) with Domain, Application, Infrastructure, and API layers. Format: (1) two-sentence definition, (2) what each layer does, (3) the dependency rule, (4) one concrete e-commerce example. Keep it under 250 words, no buzzwords, and make it sound like something I could say out loud in an interview without reading a script.
@@ -99,7 +99,7 @@ This is the baseline — it answers *a* question, just not *mine*.
 > A tight, under-250-word answer in the same four parts, but now in plain spoken language: "Application is where the actual actions live... it also declares the interfaces it needs... without building them." No jargon, nothing I'd stumble over reading aloud. This is the version I'd actually use.
 
 **Four notes:**
-- **What changed in the prompt:** added constraints (under 250 words) and a quality bar (no buzzwords, must sound spoken).
+- **What changed in the prompt:** added output constraints — a length cap and a phrasing limit (under 250 words, no buzzwords, must sound spoken aloud). One layer: bounds on the shape of the output.
 - **What improved in the output:** it became genuinely deliverable — short, plain, and natural to say in a room without a script.
 - **What still failed:** honestly little; if anything it's still close to the 250-word ceiling for a true 60-second answer.
 - **What I'd try next:** a separate 60-second variant for when the interviewer wants the short version.
