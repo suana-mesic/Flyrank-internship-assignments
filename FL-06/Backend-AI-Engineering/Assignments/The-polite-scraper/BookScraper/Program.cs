@@ -1,4 +1,4 @@
-﻿using BookScraper.Models;
+using BookScraper.Models;
 using BookScraper.Services;
 using System.Text.Json;
 
@@ -7,7 +7,7 @@ var startUrl = "https://books.toscrape.com/catalogue/page-1.html";
 var maxPages = 50;
 
 var http = new HttpClient();
-http.DefaultRequestHeaders.Add("User-Agent", "BookScraper/1.0 student-project");
+http.DefaultRequestHeaders.Add("User-Agent", "BookScraper/1.0 student-project suana.mesic@edu.fit.ba");
 
 if (!await RobotsChecker.IsAllowedAsync(http, baseUrl, "/catalogue/"))
 {

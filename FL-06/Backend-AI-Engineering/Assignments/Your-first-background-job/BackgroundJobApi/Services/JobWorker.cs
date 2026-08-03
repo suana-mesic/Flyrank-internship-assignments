@@ -1,4 +1,4 @@
-﻿using BackgroundJobApi.Models;
+using BackgroundJobApi.Models;
 using BackgroundJobApi.Store;
 using System.Threading.Channels;
 
@@ -10,17 +10,20 @@ namespace BackgroundJobApi.Services
         private readonly IJobStore _store;
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<JobWorker> _logger;
+        private readonly IAlertService _alert;
 
         public JobWorker(
               Channel<Guid> channel,
               IJobStore store,
               IServiceProvider serviceProvider,
-              ILogger<JobWorker> logger)
+              ILogger<JobWorker> logger,
+              IAlertService alert)
         {
             _channel = channel;
             _store = store;
             _serviceProvider = serviceProvider;
             _logger = logger;
+            _alert = alert;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -70,6 +73,13 @@ namespace BackgroundJobApi.Services
                     job.CompletedAtUtc = DateTime.UtcNow;
 
                     _logger.LogError(ex, "Job {Id} failed", job.Id);
+
+                    // Non-negotiable: someone must find out. A failed job (all retries
+                    // exhausted) raises an alert rather than dying silently in the logs.
+                    await _alert.RaiseAsync(
+                        $"Job {job.Id} failed after retries",
+                        ex.Message,
+                        stoppingToken);
                 }
             }
         }

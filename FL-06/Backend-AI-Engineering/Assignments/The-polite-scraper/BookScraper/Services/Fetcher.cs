@@ -1,4 +1,4 @@
-﻿namespace BookScraper.Services
+namespace BookScraper.Services
 {
     public static class Fetcher
     {
@@ -6,7 +6,7 @@
 
         public static async Task<string> GetPageAsync(HttpClient http, string url)
         {
-            Console.WriteLine($"Feztching: {url}");
+            Console.WriteLine($"Fetching: {url}");
 
             var html = await http.GetStringAsync(url);
 

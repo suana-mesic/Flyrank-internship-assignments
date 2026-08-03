@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<IJobStore, InMemoryJobStore>();
 builder.Services.AddSingleton(Channel.CreateUnbounded<Guid>());
+builder.Services.AddSingleton<IAlertService, ConsoleAlertService>();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<AiService>();
 builder.Services.AddHostedService<JobWorker>();
@@ -22,14 +23,6 @@ app.MapPost("/jobs", (JobRequest req, IJobStore store, Channel<Guid> channel) =>
     if (string.IsNullOrWhiteSpace(req.Text))
         return Results.BadRequest(new { error = "Text is required" });
 
-    if (!string.IsNullOrWhiteSpace(req.IdempotencyKey))
-    {
-        var existing = store.GetByIdempotencyKey(req.IdempotencyKey);
-
-        if (existing is not null)
-            return Results.Ok(new { jobId = existing.Id, status = existing.Status.ToString() });
-    }
-
     var job = new BackgroundJob
     {
         Id = Guid.NewGuid(),
@@ -37,10 +30,15 @@ app.MapPost("/jobs", (JobRequest req, IJobStore store, Channel<Guid> channel) =>
         IdempotencyKey = req.IdempotencyKey
     };
 
-    store.Add(job);
-    channel.Writer.TryWrite(job.Id);
+    // Atomic: if the idempotency key is already taken, we get the existing job back.
+    var (stored, isNew) = store.AddOrGet(job);
 
-    return Results.Accepted($"/jobs/{job.Id}", new { jobid = job.Id, status = "Queued" });
+    if (!isNew)
+        return Results.Ok(new { jobId = stored.Id, status = stored.Status.ToString() });
+
+    channel.Writer.TryWrite(stored.Id);
+
+    return Results.Accepted($"/jobs/{stored.Id}", new { jobId = stored.Id, status = "Queued" });
 });
 
 app.MapGet("/jobs/{id:guid}", (Guid id, IJobStore store) =>

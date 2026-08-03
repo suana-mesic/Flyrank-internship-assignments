@@ -72,7 +72,7 @@ POST /jobs
   ├─ set status → Processing
   ├─ call Groq API (with up to 3 retries)
   ├─ on success → status: Completed, store result
-  └─ on failure → status: Failed, store error
+  └─ on failure → status: Failed, store error, raise an alert
         │
 GET /jobs/{id}
   └─ read job from store, return current status + result
@@ -90,11 +90,19 @@ The POST endpoint writes a job ID into a `Channel<Guid>`. A `BackgroundService` 
 
 ### Idempotency
 
-If the caller sends an `idempotencyKey`, the API checks whether a job with that key already exists. If it does, it returns the existing job instead of creating a duplicate. This protects against retries — if the caller's network drops after sending the request, they can safely resend with the same key and get the same job back, not a second one.
+If the caller sends an `idempotencyKey`, they get the same job back on a resend instead of a duplicate — so a dropped connection followed by a retry never creates a second job.
+
+This is enforced atomically. The store's `AddOrGet` uses a `ConcurrentDictionary.GetOrAdd` on the idempotency key: even if two identical requests arrive at the exact same moment, exactly one wins the key and both callers receive that same job. There is no check-then-add race. (In-memory here; the same guarantee in production would be a unique constraint on the key column.)
+
+There is also idempotency at the worker level: before processing, the worker checks `job.Status == Queued`, so the same ID appearing twice on the queue is only ever processed once.
 
 ### Retry with backoff
 
 The worker retries the AI call up to 3 times with progressive delays (1s, 2s, 3s). If all three fail, the job is marked as `Failed` with the error message. One failed job never stops the worker loop — the `try/catch` sits inside the `await foreach`, so the next job is processed normally.
+
+### Alerts
+
+Retries handle transient failures; alerts handle the ones that don't recover. When a job fails after all retries are exhausted, the worker calls `IAlertService.RaiseAsync(...)`, which emits a clearly-marked, high-severity `ALERT` log line — so a failure is actively surfaced, not buried among info logs. The service is behind an interface (`IAlertService` → `ConsoleAlertService`): swapping the console sink for email, Slack, or a webhook is a one-class change, with no impact on the worker.
 
 ### In-memory store
 
@@ -130,6 +138,8 @@ curl -X POST http://localhost:5067/jobs \
 # → same jobId both times
 ```
 
+To see an alert, set an invalid `GROQ_API_KEY` in `.env` and submit a job — after 3 retries the job goes `Failed` and an `ALERT` line appears in the console.
+
 ---
 
 ## Files
@@ -141,7 +151,8 @@ Your-first-background-job/
 │  ├─ Store/IJobStore.cs              interface
 │  ├─ Store/InMemoryJobStore.cs       ConcurrentDictionary, singleton
 │  ├─ Services/AiService.cs           Groq API call
-│  ├─ Services/JobWorker.cs           BackgroundService, retry loop
+│  ├─ Services/IAlertService.cs       alert interface + console sink
+│  ├─ Services/JobWorker.cs           BackgroundService, retry loop, alert on failure
 │  └─ Program.cs                      endpoints + DI
 ├─ BackgroundJobApi.sln
 ├─ .env.example
