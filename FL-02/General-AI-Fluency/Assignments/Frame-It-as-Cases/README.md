@@ -8,7 +8,7 @@
 
 ## Voice Card
 
-> **direct, precise, technical but clear, honest, no buzzwords**
+> **direct, precise, technical but clear, no buzzwords**
 
 Every case below is written in this voice: short sentences, real decisions, no inflated results.
 
