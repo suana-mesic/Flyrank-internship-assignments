@@ -66,10 +66,10 @@ This means: anyone who types `suana.flyrank.ai` gets redirected (at the DNS leve
 
 ---
 
-## What I still need to do on LinkedIn and CV
+## Site linked from LinkedIn and CV
 
-- **LinkedIn:** add `suana-mesic.github.io` to the Contact info section (Edit profile → Contact info → Website). Swap it for `suana.flyrank.ai` when the subdomain is provisioned.
-- **CV:** add the URL to the header alongside email and GitHub. Same swap later.
+- **LinkedIn:** `suana-mesic.github.io` is added under Contact info → Website (type: Portfolio). See `linkedin-website.png`. I'll swap it for `suana.flyrank.ai` once the subdomain is provisioned.
+- **CV:** the site is in the "Online Portfolio" section of `CV.pdf` alongside LinkedIn, GitHub, and CodeWars — all as clickable links. Same swap later.
 
 ---
 
@@ -78,3 +78,4 @@ This means: anyone who types `suana.flyrank.ai` gets redirected (at the DNS leve
 - `README.md` — this document (DNS walkthrough)
 - `CV.pdf` — my CV, also linked from the portfolio page
 - `portfolio-at-submission.png`
+- `linkedin-website.png` — proof the site URL is on my LinkedIn profile
