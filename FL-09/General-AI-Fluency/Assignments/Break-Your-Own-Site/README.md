@@ -7,8 +7,9 @@
 
 ## Live URL
 
-https://github.com/suana-mesic/suana-mesic.github.io/tree/f7 — The version built specifically for this assignment. You can view it by cloning the repository and double-clicking index.html.
-https://suana-mesic.github.io — The live production version, which updates depending on how many tasks I have completed.
+**https://suana-mesic.github.io** — the live site, served over HTTPS. This is the URL to open and test.
+
+_(The exact version built for this assignment is on branch `f7` of the repo, for reference only — not a live page: https://github.com/suana-mesic/suana-mesic.github.io/tree/f7)_
 
 ---
 
@@ -52,6 +53,22 @@ Added `if (btn.disabled) return;` as the first line of the submit handler. Now t
 **No `robots.txt` or `sitemap.xml`.** GitHub Pages allows indexing by default, so Google will find the site eventually without these. Adding them would speed up indexing slightly but isn't blocking.
 
 **CV link breaks if the PDF isn't in the repo.** The link points to `Suana_Mesic_CV.pdf` as a relative path. If someone clones the repo and doesn't include the PDF, or if the filename changes, the link silently 404s. A proper fix would be hosting the CV externally (Google Drive, LinkedIn) and linking there.
+
+---
+
+## Hardening review
+
+**Reviewer:** a colleague from my faculty (same field). **Date:** 3 August 2026.
+
+**What they did:** independently tried to break the live site, without a script — submitted the contact form empty and with garbage input (`asdf` as the email), submitted twice in quick succession, opened it in a browser/device they hadn't used, clicked every link (LinkedIn, GitHub, CodeWars, CV, Calendly, BookVerse repo), and resized the window from very narrow to very wide.
+
+**Result — no must-fixes.** The reviewer could not break the site:
+- the `required` + `type="email"` validation blocked empty and garbage submissions;
+- the `if (btn.disabled) return` guard stopped the fast double-submit;
+- every link opened correctly;
+- the layout held at every width.
+
+The fix-nows from my own triage (Open Graph tags, favicon, double-submit guard) were already applied before this review, so there was nothing left for the reviewer to flag. The known limitations above were shown to the reviewer and accepted as reasonable trade-offs, not blocking issues.
 
 ---
 
