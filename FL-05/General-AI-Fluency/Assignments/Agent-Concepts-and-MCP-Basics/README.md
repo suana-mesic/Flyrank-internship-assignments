@@ -29,6 +29,8 @@ MCP is an open protocol for letting a model reach things outside the chat window
 
 The pieces: the **host** is the app (Claude Desktop), the **server** is a small program that exposes some capability, and the client sits between them.
 
+The reason the standard matters is reuse. Before MCP, connecting a model to a tool meant a bespoke integration for that exact pair, and it broke the moment either side changed. Because MCP fixes the shape of the conversation between client and server, the same Filesystem server I connected to Claude Desktop would work unchanged in any other MCP client, and Claude Desktop can talk to a database server or a Git server the same way it talks to mine. One protocol turns an N×M integration problem into N + M — which is exactly why it spread fast enough to be worth learning now rather than later.
+
 ### The three primitives
 
 What confused me at first is that all three come from the server, not from my chat. Attaching a PDF to a conversation isn't MCP — it's just an upload.
