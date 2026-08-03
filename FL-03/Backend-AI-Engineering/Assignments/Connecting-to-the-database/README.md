@@ -5,6 +5,14 @@
 
 ---
 
+## A note on technology
+
+The assignment lists a JavaScript and a Python lane. I built it in **C# / .NET** with `Microsoft.Data.Sqlite` instead — the same stack I use across the whole Backend AI Engineering track and in my coursework at FIT Mostar, so keeping one language throughout the track made sense.
+
+I confirmed this with FlyRank support, who replied: *"there are no restrictions on tools and technologies, you can use whatever works for you."* The requirements here are stack-agnostic — the same CRUD API, SQLite storage in a single `tasks.db` file, an auto-created database and table, and seed-on-first-run — and every one of them is met.
+
+---
+
 ## What changed from Assignment 1
 
 The API endpoints are identical — same URLs, same request bodies, same responses. The only difference is that tasks are now stored in a SQLite database file (`tasks.db`) instead of an in-memory list. Data survives server restarts.
