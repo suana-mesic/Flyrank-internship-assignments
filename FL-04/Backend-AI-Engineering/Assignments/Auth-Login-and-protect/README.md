@@ -112,7 +112,7 @@ curl -i -X POST http://localhost:5203/auth/logout \
 
 ## Swagger UI
 
-Available at `http://localhost:5203/swagger` with Bearer token authorization.
+Available at `http://localhost:5203/docs` with Bearer token authorization.
 
 1. Call `POST /auth/login` → copy the `access_token` from the response.
 2. Click **Authorize** → paste the token → click **Authorize**.

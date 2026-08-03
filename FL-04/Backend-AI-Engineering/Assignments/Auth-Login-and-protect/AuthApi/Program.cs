@@ -36,7 +36,7 @@ builder.Services.AddScoped<SupabaseAuthService>();
 
 var app = builder.Build();
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(o => o.RoutePrefix = "docs");
 
 app.MapGet("/", () => "Auth API is running");
 
@@ -78,21 +78,11 @@ app.MapGet("/public/info", () =>
     Results.Ok(new { message = "Welcome stranger! This info is public." }));
 
 // --- PROTECTED ---
-app.MapGet("/protected/profile", async (HttpContext http, SupabaseAuthService auth) =>
-{
-    var (ok, user) = await VerifyToken(http, auth);
-    return ok
-        ? Results.Ok(user)
-        : Results.Json(new { error = "Invalid or expired token" }, statusCode: 401);
-});
+app.MapGet("/protected/profile", (HttpContext http, SupabaseAuthService auth) =>
+    RequireUser(http, auth, user => Results.Ok(user)));
 
-app.MapGet("/protected/dashboard", async (HttpContext http, SupabaseAuthService auth) =>
-{
-    var (ok, user) = await VerifyToken(http, auth);
-    return ok
-        ? Results.Ok(new { message = "Welcome to the dashboard", user })
-        : Results.Json(new { error = "Invalid or expired token" }, statusCode: 401);
-});
+app.MapGet("/protected/dashboard", (HttpContext http, SupabaseAuthService auth) =>
+    RequireUser(http, auth, user => Results.Ok(new { message = "Welcome to the dashboard", user })));
 
 // --- LOGOUT ---
 
@@ -113,20 +103,22 @@ app.MapPost("/auth/logout", async (HttpContext http, SupabaseAuthService auth) =
     }
 });
 
-// --- MIDDLEWARE ---
-async Task<(bool ok, JsonElement user)> VerifyToken(HttpContext http, SupabaseAuthService auth)
+// --- MIDDLEWARE (reusable auth guard) ---
+// Missing/malformed header -> "Access token required"; bad/expired token -> "Invalid or expired token".
+async Task<IResult> RequireUser(HttpContext http, SupabaseAuthService auth, Func<JsonElement, IResult> onAuthorized)
 {
     var token = ExtractToken(http);
-    if (token is null) return (false, default);
+    if (token is null)
+        return Results.Json(new { error = "Access token required" }, statusCode: 401);
 
     try
     {
         var user = await auth.GetUserAsync(token);
-        return (true, user);
+        return onAuthorized(user);
     }
     catch (UnauthorizedAccessException)
     {
-        return (false, default);
+        return Results.Json(new { error = "Invalid or expired token" }, statusCode: 401);
     }
 }
 static string? ExtractToken(HttpContext http)
