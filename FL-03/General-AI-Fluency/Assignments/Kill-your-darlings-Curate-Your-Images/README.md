@@ -18,7 +18,7 @@ AI can make any image in seconds, so the skill isn't generation — it's judgmen
 | Code screenshot — `PaidOrderNotificationBackgroundService` | Real capture | My own IDE | Work / case study |
 | Clean Architecture diagram | Real diagram of my actual structure | Made in my identity-kit colors | Work / About |
 | Logo + favicon ("Suana." / "S") | Brand asset | From my identity kit | Header / browser tab |
-| Profile photo | Real photo | To add when building | About |
+| Profile photo | Real photo | `profile-photo.jpg` | About |
 
 Most of the set is real: a screenshot of my working code and a diagram of my actual architecture. Nothing here is an AI stand-in for my work.
 
@@ -43,4 +43,5 @@ Most of the set is real: a screenshot of my working code and a diagram of my act
 ## Files in this folder
 
 - `architecture-diagram.png` — the calm, on-brand Clean Architecture diagram (a keeper)
-- Code screenshot and profile photo to be added from real captures when building the portfolio
+- `code-screenshot.png` — real IDE capture of `PaidOrderNotificationBackgroundService` (a keeper)
+- `profile-photo.jpg` — real photo, used where the subject is me (About)
