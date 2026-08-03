@@ -60,12 +60,14 @@
 
 ## What I fixed
 
-**1. Form now clears after submission.** Added JavaScript that intercepts the form submit, sends it via fetch instead of a full page redirect, shows a "Thank you!" message, and resets all fields. The visitor stays on the page and sees confirmation without the form looking stale.
+**1. Form now clears after submission.** Added JavaScript that intercepts the form submit, sends it via fetch instead of a full page redirect, shows a "Thank you!" message, and resets all fields. The visitor stays on the page and sees confirmation without the form looking stale. Evidence: `fix1-form-cleared.jpg`.
 
-**2. Replaced the blurry code screenshot with a formatted code block.** The actual C# code from `PaidOrderNotificationBackgroundService.cs` is now embedded with syntax highlighting — keywords in purple, types in teal, strings in orange, comments in green. It's the real code, readable on any screen size, and can be copied.
+**2. Replaced the blurry code screenshot with a formatted code block.** The actual C# code from `PaidOrderNotificationBackgroundService.cs` is now embedded with syntax highlighting — keywords in purple, types in teal, strings in orange, comments in green. It's the real code, readable on any screen size, and can be copied. Evidence: `fix2-formatted-code.png`.
 
 ---
 
 ## Files
 
 - `README.md` — this document
+- `fix1-form-cleared.jpg` — contact form after submit: "Thank you!" shown, fields cleared
+- `fix2-formatted-code.png` — the blurry screenshot replaced with a real syntax-highlighted code block
