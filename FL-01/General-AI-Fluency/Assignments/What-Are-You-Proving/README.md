@@ -14,9 +14,9 @@ Before building anything, this assignment settles the single most important ques
 
 ## Proof Statement
 
-I am a junior backend developer with a focus on database design and clean architecture, looking for my first professional role at an established company. My projects demonstrate what a CV cannot: BookVerse, a full e-commerce backend built with Clean Architecture in C#, featuring a decoupled notification system, order lifecycle managed through a state machine, and inventory logic designed to make the user experience seamless; and an RFID-based attendance tracking system built for academic use — together showing experience across both commercial and institutional backend problems. If you are a hiring manager or technical lead looking for a junior developer who thinks in systems and writes maintainable code, I want you to visit my GitHub and see it for yourself.
+I am a junior backend developer with a focus on clean architecture, looking for my first professional role at an established company. My projects demonstrate what a CV cannot: BookVerse, a full e-commerce backend built with Clean Architecture in C#, featuring a decoupled notification system, order lifecycle managed through a state machine, and inventory logic designed to make the user experience seamless; and an RFID-based attendance tracking system built for academic use — together showing experience across both commercial and institutional backend problems. If you are a hiring manager or technical lead looking for a junior developer who thinks in systems and writes maintainable code, I want you to visit my GitHub and see it for yourself.
 
-**Claim:** Junior backend developer focused on database design and clean architecture.
+**Claim:** Junior backend developer focused on clean architecture.
 **Person:** A hiring manager or technical lead at an established company.
 **Action:** Visit my GitHub.
 
